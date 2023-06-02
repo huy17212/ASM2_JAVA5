@@ -43,7 +43,7 @@ public class JavaGmailSenderUtils {
 					+ "<br><img src='cid:image001'/><br><b>Best Regards</b>";
 			helper.setText(content, true);
 
-			var imgFile = new ClassPathResource("templates/assert/img/logo.png");
+			ClassPathResource imgFile = new ClassPathResource("templates/assert/img/logo.png");
 			helper.addInline("image001", imgFile);
 
 			mailSender.send(message);
