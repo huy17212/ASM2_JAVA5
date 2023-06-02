@@ -7,10 +7,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
 
 import com.HTT.company.service.JavaFileDriveStogareService;
 import com.google.api.client.auth.oauth2.Credential;
@@ -144,7 +142,7 @@ public class FileDriveStogareServiceImpl implements JavaFileDriveStogareService 
 
 			service.permissions().create(fileHaveToPermission.getId(), domainPermission).setFields("id").queue(batch,
 					callback);
-
+			
 			batch.execute();
 		} catch (Exception e1) {
 			e1.printStackTrace();

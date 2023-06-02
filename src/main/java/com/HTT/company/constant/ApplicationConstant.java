@@ -13,6 +13,8 @@ public class ApplicationConstant {
 	
 	public static String TRUE_TOKEN_FOR_CREATE_NEW_ACCOUNT = "";
 	
+	public final static String USER_ACCOUNT = "ACCOUNT_LOGINED";
+	
 	public static String GENERATE_RANDOM_TOKEN_FOR_CREATE_NEW_ACCOUT() {
 		return Math.random() + "";
 	}

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.HTT.company.constant.FindArgsConstaint;
 import com.HTT.company.entity.Finder;
 import com.HTT.company.entity.Product;
 import com.HTT.company.enumeration.Branding;
@@ -74,7 +73,12 @@ public class HomeController {
 	@GetMapping("/showAllProduct")
 	public String HomeController1(Model model,
 			@RequestParam(defaultValue = "5", name = "pageNumber") Integer pageNumber) {	
-		model.addAttribute("list_product", productService.loadProductByConstaint());
+		
+		List<Product> listProductTempting = productService.getAllProduct();
+		
+		Collections.sort(listProductTempting, (o1, o2) -> Double.compare(o1.getProductPrice(), o2.getProductPrice()));
+		
+		model.addAttribute("list_product", listProductTempting);
 		return "views/another_view/shop";
 	}
 	
@@ -86,10 +90,11 @@ public class HomeController {
 		
 		// 1 = categories_code
 		// 2 = brand_code
-//		productService.parseStringToFindArgsConstant(find); productService.loadProductByConstaint()
-		System.out.println("kaka " + dinder.toString());
+		List<Product> listProducts = productService.loadProductByConstaint(dinder.getCATEGORIES_CODE(),
+				dinder.getBRANDING_CODE(), dinder.getSIZE_CODE(), dinder.getFILTER_PRICE(), dinder.getCOLOR_CODE(), dinder.getTAG_CODE(), dinder.getSORT_CODE(),dinder.getSEARCH_CODE());
 		
-		return ResponseEntity.ok(find);
+		
+		return ResponseEntity.ok(new Gson().toJson(listProducts));
 	}
 
 }

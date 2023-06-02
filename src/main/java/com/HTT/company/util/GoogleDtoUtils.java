@@ -9,8 +9,8 @@ public class GoogleDtoUtils {
 	public static Users GoogleDtoParseToUsers(GoogleDto entityGoogleDto) {
 
 		Users entityUsers = (Users) ApplicationConstant.APPLICATION_CONTEXT.getBean("getUsers");
-		entityUsers.setUsername(entityGoogleDto.getEmail());
-		entityUsers.setPassword("");
+		entityUsers.setUsersId(entityGoogleDto.getEmail());
+		entityUsers.setPassWord("");
 		entityUsers.setAccountName(entityGoogleDto.getFamily_name() + " " + entityGoogleDto.getGiven_name());
 		entityUsers.setNumberPhone("");
 		entityUsers.setGmail(entityGoogleDto.getEmail());

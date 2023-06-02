@@ -105,11 +105,18 @@
     /*-------------------
 		Radio Btn
 	--------------------- */
-    $(".product__color__select label, .shop__sidebar__size label, .product__details__option__size label").on('click', function () {
+    $(".product__color__select label, .shop__sidebar__size label, .product__details__option__size label")
+    .on('click', function () {
         $(".product__color__select label, .shop__sidebar__size label, .product__details__option__size label").removeClass('active');
         $(this).addClass('active');
     });
-
+	
+	$(".shop__sidebar__tags label")
+    .on('click', function () {
+        $(".shop__sidebar__tags label").removeClass('active');
+        $(this).addClass('active');
+    });
+	
     /*-------------------
 		Scroll
 	--------------------- */
@@ -179,9 +186,10 @@
         $button.parent().find('input').val(newVal);
     });
 
+
     var proQty = $('.pro-qty-2');
-    proQty.prepend('<span class="fa fa-angle-left dec qtybtn"></span>');
-    proQty.append('<span class="fa fa-angle-right inc qtybtn"></span>');
+    proQty.prepend('<span onclick="ChangeToAmount(this)" class="fa fa-angle-left dec qtybtn"></span>');
+    proQty.append('<span onclick="ChangeToAmount(this)" class="fa fa-angle-right inc qtybtn"></span>');
     proQty.on('click', '.qtybtn', function () {
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
@@ -189,10 +197,10 @@
             var newVal = parseFloat(oldValue) + 1;
         } else {
             // Don't allow decrementing below zero
-            if (oldValue > 0) {
+            if (oldValue > 1) {
                 var newVal = parseFloat(oldValue) - 1;
             } else {
-                newVal = 0;
+                newVal = 1;
             }
         }
         $button.parent().find('input').val(newVal);

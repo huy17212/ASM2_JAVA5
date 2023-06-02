@@ -49,6 +49,7 @@ public class LoginController {
 
 	@RequestMapping(value = { "/", "/welcome", "/index", "/home", "/Callback" }, method = RequestMethod.GET)
 	public String welcomePage(Model model, Principal printPrincipal) {
+		System.out.print("po tin " +printPrincipal);
 		model.addAttribute("title", "Welcome");
 		model.addAttribute("message", "This is welcome page!");
 		return "views/another_view/index";
@@ -93,7 +94,7 @@ public class LoginController {
 			HttpSession session) {
 
 		Optional<Users> accountDuplicatedUsername = Optional
-				.ofNullable(userService.findByUserName(entity.getUsername()));
+				.ofNullable(userService.findByUserName(entity.getUsersId()));
 		Optional<Users> accountDuplicatedGmail = Optional.ofNullable(userService.findByUserName(entity.getGmail()));
 
 		session.setAttribute("stepOneCreateUsers", entity);
@@ -107,8 +108,8 @@ public class LoginController {
 		gmailSenderService.sendEmailActivated(entity.getGmail(), hyperlink, entity);
 		return "views/ConfirmEmailCentidental";
 	}
-	
-	@GetMapping("/	")
+
+	@GetMapping("/sendConfirmEmailCentidentalAgain")
 	public String sendConfirmEmailCentidentalAgain(HttpSession session) {
 		Optional<Users> entity = Optional.ofNullable((Users) session.getAttribute("stepOneCreateUsers"));
 		String hyperlink = "activatedAccount";
@@ -127,7 +128,7 @@ public class LoginController {
 
 		// Create new Folder in ggdrive and upload image to that, which is store and
 		// use.
-		File FileAvatar = fileDriveService.addNewAvatarToNewFolder(userEntity.get().getUsername(),
+		File FileAvatar = fileDriveService.addNewAvatarToNewFolder(userEntity.get().getUsersId(),
 				avatar.getOriginalFilename(), userEntity.get().getGmail());
 
 		// Add permission for the account. Only admin and the guy who upload the image
@@ -137,41 +138,39 @@ public class LoginController {
 		fileStorageService.deleteAll();
 
 		// Hash password by BcryptEncoder 10 digit
-		String newHashedPassword = BCrypt.hashpw(userEntity.get().getPassword(), BCrypt.gensalt());
+		String newHashedPassword = BCrypt.hashpw(userEntity.get().getPassWord(), BCrypt.gensalt());
 
 		// Create new Account
 		userEntity.get().setAccountName(accountName);
-		userEntity.get().setPassword(newHashedPassword);
-		userEntity.get().setAvatar("https://drive.google.com/uc?id="+FileAvatar.getId());
+		userEntity.get().setPassWord(newHashedPassword);
+		userEntity.get().setAvatar("https://drive.google.com/uc?id=" + FileAvatar.getId());
 
 		usersService.create(userEntity.get());
 
 		System.out.println(userEntity.get().toString());
-		return "views/ConfirmEmailCentidental";
+		return "redirect:/index";
 	}
 
 	@RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
 	public String logoutSuccessfulPage(Model model) {
 		model.addAttribute("title", "Logout");
-		return "logoutSuccessfulPage";
+		return "redirect:/index";
 	}
 
-//    @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-//    public String userInfo(Model model, Principal principal) {
-//
-//        // Sau khi user login thanh cong se co 	
-//        String userName = principal.getName();
-//
-//        System.out.println("User Name: " + userName);
-//        System.out.println("principal " + principal);
-//
-//        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-//
-//        String userInfo = WebUtils.toString(loginedUser);
-//        model.addAttribute("userInfo", userInfo);
-//
-//        return "userInfoPage";
-//    }
+	@RequestMapping(value = "/loginsuccessful", method = RequestMethod.GET)
+	public String userInfo(Model model, Principal principal, HttpSession session) {
+
+		// Sau khi user login thanh cong se co
+		String userName = principal.getName();
+
+		System.out.println("User Name: " + userName);
+		System.out.println("principal " + principal);
+
+		User loginedUser = (User) ((Authentication) principal).getPrincipal();
+		session.setAttribute(ApplicationConstant.USER_ACCOUNT, loginedUser);
+
+		return "redirect:/index";
+	}
 
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String accessDenied(Model model, Principal principal) {

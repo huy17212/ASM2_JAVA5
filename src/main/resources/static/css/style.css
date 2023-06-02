@@ -1115,6 +1115,48 @@ ol {
 	cursor: pointer;
 }
 
+.blue{
+	background: blue;
+}
+
+
+.all{
+	background: white;
+}
+
+.black {
+	background: #404a47;
+}
+
+.red {
+	background: red;
+}
+
+.navi {
+	background: navy;
+}
+
+.pink {
+	background: #ff80c0;
+}
+
+.purple {
+	background: purple;
+}
+
+.white {
+	background: #c0c0c0;
+}
+
+.yellow {
+	background: yellow;
+}
+
+.gray {
+	background: gray;
+}
+
+
 .product__item__text .product__color__select label.all {
 	background: white;
 }
@@ -1147,7 +1189,7 @@ ol {
 	background: yellow;
 }
 
-.product__item__text .product__color__select label.grey {
+.product__item__text .product__color__select label.gray {
 	background: gray;
 }
 
@@ -1184,11 +1226,11 @@ ol {
 	margin-bottom: 45px;
 }
 
-.shop__sidebar__search form {
+.shop__sidebar__search {
 	position: relative;
 }
 
-.shop__sidebar__search form input {
+.shop__sidebar__search input {
 	width: 100%;
 	font-size: 15px;
 	color: #b7b7b7;
@@ -1197,27 +1239,27 @@ ol {
 	height: 42px;
 }
 
-.shop__sidebar__search form input::-webkit-input-placeholder {
+.shop__sidebar__search input::-webkit-input-placeholder {
 	color: #b7b7b7;
 }
 
-.shop__sidebar__search form input::-moz-placeholder {
+.shop__sidebar__search input::-moz-placeholder {
 	color: #b7b7b7;
 }
 
-.shop__sidebar__search form input:-ms-input-placeholder {
+.shop__sidebar__search input:-ms-input-placeholder {
 	color: #b7b7b7;
 }
 
-.shop__sidebar__search form input::-ms-input-placeholder {
+.shop__sidebar__search input::-ms-input-placeholder {
 	color: #b7b7b7;
 }
 
-.shop__sidebar__search form input::placeholder {
+.shop__sidebar__search input::placeholder {
 	color: #b7b7b7;
 }
 
-.shop__sidebar__search form button {
+.shop__sidebar__search button {
 	color: #b7b7b7;
 	font-size: 15px;
 	border: none;
@@ -1263,11 +1305,7 @@ ol {
 	display: block;
 }
 
-.shop__sidebar__categories ul,
-.shop__sidebar__price ul,
-.shop__sidebar__brand ul {
-	height: 225px;
-}
+
 
 .shop__sidebar__categories ul li,
 .shop__sidebar__price ul li,
@@ -1324,6 +1362,34 @@ ol {
 }
 
 .shop__sidebar__size label input {
+	position: absolute;
+	visibility: hidden;
+}
+
+.shop__sidebar__tags {
+	padding-top: 15px;
+}
+
+.shop__sidebar__tags label {
+	color: #111111;
+	font-size: 15px;
+	font-weight: 700;
+	text-transform: uppercase;
+	display: inline-block;
+	border: 1px solid #e5e5e5;
+	padding: 6px 25px;
+	margin-bottom: 10px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.shop__sidebar__tags label.active {
+	background: #111111;
+	color: #ffffff;
+	border-color: #111111;
+}
+
+.shop__sidebar__tags label input {
 	position: absolute;
 	visibility: hidden;
 }

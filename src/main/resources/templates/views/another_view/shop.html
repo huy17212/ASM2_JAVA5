@@ -34,35 +34,6 @@
 		<div class="loader"></div>
 	</div>
 
-	<!-- Offcanvas Menu Begin -->
-	<div class="offcanvas-menu-overlay"></div>
-	<div class="offcanvas-menu-wrapper">
-		<div class="offcanvas__option">
-			<div class="offcanvas__links">
-				<a href="#">Sign in</a> <a href="#">FAQs</a>
-			</div>
-			<div class="offcanvas__top__hover">
-				<span>Usd <i class="arrow_carrot-down"></i></span>
-				<ul>
-					<li>USD</li>
-					<li>EUR</li>
-					<li>USD</li>
-				</ul>
-			</div>
-		</div>
-		<div class="offcanvas__nav__option">
-			<a href="#" class="search-switch"><img src="img/icon/search.png"
-				alt=""></a> <a href="#"><img src="img/icon/heart.png" alt=""></a>
-			<a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-			<div class="price">$0.00</div>
-		</div>
-		<div id="mobile-menu-wrap"></div>
-		<div class="offcanvas__text">
-			<p>Free shipping, 30-day return or refund guarantee.</p>
-		</div>
-	</div>
-	<!-- Offcanvas Menu End -->
-
 	<!-- Header Section Begin -->
 	<header class="header">
 		<div class="header__top">
@@ -75,17 +46,12 @@
 					</div>
 					<div class="col-lg-6 col-md-5">
 						<div class="header__top__right">
-							<div class="header__top__links">
-								<a href="#">Sign in</a> <a href="#">FAQs</a>
-							</div>
-							<div class="header__top__hover">
-								<span>Usd <i class="arrow_carrot-down"></i></span>
-								<ul>
-									<li>USD</li>
-									<li>EUR</li>
-									<li>USD</li>
-								</ul>
-							</div>
+							<th:block th:switch="${session.ACCOUNT_LOGINED}">
+								<div class="header__top__links">
+									<a th:case="null" th:href="@{/login}">Sign in</a> <a href="#"></a>
+									<a th:case="*" th:href="@{/logout}">Sign out</a> <a href="#"></a>
+								</div>
+							</th:block>
 						</div>
 					</div>
 				</div>
@@ -101,16 +67,8 @@
 				<div class="col-lg-6 col-md-6">
 					<nav class="header__menu mobile-menu">
 						<ul>
-							<li><a href="./index.html">Home</a></li>
-							<li class="active"><a href="./shop.html">Shop</a></li>
-							<li><a href="#">Pages</a>
-								<ul class="dropdown">
-									<li><a href="./about.html">About Us</a></li>
-									<li><a href="./shop-details.html">Shop Details</a></li>
-									<li><a href="./shopping-cart.html">Shopping Cart</a></li>
-									<li><a href="./checkout.html">Check Out</a></li>
-									<li><a href="./blog-details.html">Blog Details</a></li>
-								</ul></li>
+							<li><a th:href="@{/index}">Home</a></li>
+							<li  class="active"><a  th:href="@{/showAllProduct}">Shop</a></li>
 							<li><a href="./blog.html">Blog</a></li>
 							<li><a href="./contact.html">Contacts</a></li>
 						</ul>
@@ -120,7 +78,7 @@
 					<div class="header__nav__option">
 						<a href="#" class="search-switch"><img
 							src="img/icon/search.png" alt=""></a> <a href="#"><img
-							src="img/icon/heart.png" alt=""></a> <a href="#"><img
+							src="img/icon/heart.png" alt=""></a> <a th:href="@{/showCart}"><img
 							src="img/icon/cart.png" alt=""> <span>0</span></a>
 						<div class="price">$0.00</div>
 					</div>
@@ -157,12 +115,10 @@
 				<div class="col-lg-3">
 					<div class="shop__sidebar">
 						<div class="shop__sidebar__search">
-							<form action="#">
-								<input type="text" placeholder="Search...">
-								<button type="submit">
-									<span class="icon_search"></span>
-								</button>
-							</form>
+							<input id="searchCode" type="text" placeholder="Search...">
+							<button onclick="onCharge('8, ')">
+								<span class="icon_search"></span>
+							</button>
 						</div>
 						<div class="shop__sidebar__accordion">
 							<div class="accordion" id="accordionExample">
@@ -179,7 +135,8 @@
 														<li><a class="catagories_item"
 															th:id="'catagories_item_'+${items.nameCategory}"
 															th:attr="onclick=|onCharge('1,'+'${items.nameCategory}')|"
-															th:text="${items.nameCategory} + '(' + ${items.amount} +')'"></a></li>
+															th:text="${items.nameCategory} + '(' + ${items.amount} +')'"></a>
+														</li>
 													</th:block>
 												</ul>
 											</div>
@@ -218,8 +175,8 @@
 												<ul>
 													<th:block th:each="items : ${filterPrice}">
 														<li><a th:id="'filterPrice_item_' +${items}"
-															class="filterPrice_item"
 															th:attr="onclick=|onCharge('4,'+'${items}')|"
+															class="filterPrice_item"
 															th:text="${items.nameFilterPrice}"></a></li>
 													</th:block>
 												</ul>
@@ -236,7 +193,7 @@
 										<div class="card-body">
 											<div class="shop__sidebar__size">
 												<th:block th:each="items : ${size}">
-													<label
+													<label class="size_item"
 														th:attr="onclick=|onCharge('3,'+'${items.nameSize}')|"
 														th:text="${items.nameSize}"> <input type="radio"
 														th:id=${items.namesize}>
@@ -255,10 +212,10 @@
 										<div class="card-body">
 											<div class="shop__sidebar__color">
 												<th:block th:each="items, sub : ${color}">
-													<label th:class="'c-'+ ${sub.index}" class="color_item"> <input
+													<label th:class="'c-'+ ${sub.index}" class="color_item">
+														<input
 														th:attr="onclick=|onCharge('5,'+'${items.nameColor}')|"
-														type="radio"
-														th:id="'color_item_' + ${items.nameColor}">
+														type="radio" th:id="'color_item_' + ${items.nameColor}">
 													</label>
 												</th:block>
 											</div>
@@ -272,9 +229,13 @@
 									<div id="collapseSix" class="collapse show"
 										data-parent="#accordionExample">
 										<div class="card-body">
-											<div class="shop__sidebar__tags">
+											<div class="shop__sidebar__tags ">
 												<th:block th:each="items : ${tag}">
-													<a th:text="${items.nameTag}" href="#"></a>
+													<label class="tag_item"
+														th:attr="onclick=|onCharge('6,'+'${items.nameTag}')|"
+														th:text="${items.nameTag}"> <input type="radio"
+														th:id=${items.nameTag}>
+													</label>
 												</th:block>
 											</div>
 										</div>
@@ -294,19 +255,20 @@
 							</div>
 							<div class="col-lg-6 col-md-6 col-sm-6">
 								<div class="shop__product__option__right">
-									<p>Sort by Price:</p>
-									<select>
-										<th:block th:each="items : ${sortingByPrice}">
-											<option th:text="${items.nameSortingMethod}" value=""></option>
-										</th:block>
-									</select>
+									<label>Descending</label> <input
+										onclick="onCharge('7,lowToHigh')" type="radio" name="sort"
+										value="low to High" checked="checked"> <label
+										style="margin-left: 10%">Ascending</label> <input
+										onclick="onCharge('7,highToLow')" type="radio" name="sort"
+										value="high to low">
+
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div id="renderHere" class="row">
 						<th:block th:each="item : ${list_product}">
-							<div class="col-lg-4 col-md-6 col-sm-6">
+							<div class="col-lg-4 col-md-6 col-sm-6 shouldDelele">
 								<div class="product__item">
 									<div class="product__item__pic set-bg">
 										<img alt="no"
@@ -322,7 +284,7 @@
 									</div>
 									<div class="product__item__text">
 										<h6 th:text="${item.productName}"></h6>
-										<a th:href="@{/addToCart?productId=} + ${item.productId}"
+										<a th:attr="onclick=|onToCart1('1,'+'${item.productId}')|"
 											class="add-cart">+ Add To Cart</a>
 										<div class="rating">
 											<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
@@ -426,7 +388,8 @@
 		<div class="h-100 d-flex align-items-center justify-content-center">
 			<div class="search-close-switch">+</div>
 			<form class="search-model-form">
-				<input type="text" id="search-input" placeholder="Search here.....">
+				<input onclick="onCharge(this)" type="text" id="search-input"
+					placeholder="Search here.....">
 			</form>
 		</div>
 	</div>
@@ -446,18 +409,58 @@
 </body>
 
 <script type="text/javascript">
+	
 	var CATEGORIES_CODE = "all";
 	var BRANDING_CODE = "all";
 	var SIZE_CODE = "all";
 	var FILTER_PRICE = "All";
 	var COLOR_CODE = "all";
+	var TAG_CODE = "all";
+	var SORT_CODE = "lowToHigh";
+	var SEARCH_CODE = "";	
+	
+	document.getElementsByClassName('catagories_item')[0].style.fontWeight = "900";
+	document.getElementsByClassName('branding_item')[0].style.fontWeight = "900";
+	document.getElementsByClassName('filterPrice_item')[0].style.fontWeight = "900";
+	document.getElementsByClassName('size_item')[0].classList.add('active');
+	document.getElementsByClassName('tag_item')[0].classList.add('active');
+	
+	
+	function onToCart1(vark){
+		alert(vark);
+		
+		var code = vark.split(",")[0];
 
+		var thing = vark.split(",")[1];
+		
+		var url = "";
+		
+		switch (code) {
+			case"1":{
+				url = "https://localhost:8082/addToCart1";
+				break;
+			}
+			case "2":{
+				url = "https://localhost:8082/addToCart2";
+				break;
+			}
+		}
+		
+		$.ajax({
+			url : url,
+			type : "POST",
+			dataType : "text",
+			contentType : "application/json",
+			data : thing,
+			success : function(data, status) {
+				alert(data);
+			},error : function(status) {
+				alert(status);
+			}
+		});
+	}
+	
 	function onCharge(vark) {
-
-		/*
-		catagories_item_
-		catagories_item
-		 */
 
 		var code = vark.split(",")[0];
 
@@ -511,6 +514,18 @@
 			document.querySelector("#color_item_" + thing).style.backgroundColor = "black";
 			break;
 		}
+		case "6": {
+			TAG_CODE = thing;
+			break;
+		}
+		case "7":{
+			SORT_CODE = thing;
+			break;
+		}
+		case "8": {
+			SEARCH_CODE = document.getElementById('searchCode').value;
+			break;
+		}
 		}
 
 		var object_constant = {
@@ -518,17 +533,63 @@
 			BRANDING_CODE : BRANDING_CODE,
 			SIZE_CODE : SIZE_CODE,
 			FILTER_PRICE : FILTER_PRICE,
-			COLOR_CODE : COLOR_CODE
+			COLOR_CODE : COLOR_CODE,
+			TAG_CODE : TAG_CODE,
+			SEARCH_CODE : SEARCH_CODE,
+			SORT_CODE : SORT_CODE
 		};
 
 		$.ajax({
 			url : "https://localhost:8082/FindArgsConstaint",
 			type : "POST",
-			dataType : "text",
+			dataType : "json",
 			contentType : "application/json",
 			data : JSON.stringify(object_constant),
 			success : function(data, status) {
-				console.log(data);
+				var inner = "";
+				
+				for(var index  = 0; index < data.length; index ++){
+					var color = "";
+					for(var indexNested = 0; indexNested < data[index].productColor.split(',').length; indexNested++){
+						color+= `
+							<label class="${data[index].productColor.split(',')[indexNested]}" for="pc-${indexNested}"> <input type="radio"> 
+					    	</label>`;
+					}
+					
+				    inner+= 
+				    	`<div class="col-lg-4 col-md-6 col-sm-6"> 
+				    <div class="product__item"> <div class="product__item__pic set-bg">
+				  	  	<img alt="no"
+							src="https://drive.google.com/uc?id=${data[index].productThumnail}">
+				    	<ul class="product__hover"> 
+				    		<li><a href="#"><img src="img/icon/heart.png" alt></a></li> 
+				    		<li><a href="#"><img src="img/icon/compare.png" alt> <span>Compare</span></a> 
+				    		</li> <li><a href="#"><img src="img/icon/search.png" alt></a></li> 
+				    	</ul> 
+				    </div> 
+				    <div class="product__item__text"> 
+				    	<h6>${data[index].productName}</h6> 
+				    	<a onclick="onToCart1('1,'+'${data[index].productId}')" class="add-cart">+ Add To Cart</a> 
+				    <div class="rating"> 
+				    	<i class="fa fa-star-o"></i> 
+				    	<i class="fa fa-star-o"></i> 
+				    	<i class="fa fa-star-o"></i> 
+				    	<i class="fa fa-star-o"></i> 
+				    	<i class="fa fa-star-o"></i> 
+				    </div> <h5>${data[index].productPrice}.0$</h5> 
+				    <div class="product__color__select"> 
+				    	${color}
+				    </div> </div> </div> </div>`
+				}
+				
+				document.getElementById('renderHere').innerHTML = inner;
+				var Dicky = document.getElementsByClassName('shouldDelele');
+				let len = Dicky.length;
+				
+				for(var indexk = 0; indexk < len; ++indexk){
+					Dicky[0].remove();
+				}
+				
 			},
 			error : function(status) {
 				alert(status);
@@ -537,5 +598,4 @@
 		/**/
 	}
 </script>
-
 </html>

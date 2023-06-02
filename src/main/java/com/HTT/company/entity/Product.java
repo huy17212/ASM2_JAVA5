@@ -123,7 +123,7 @@ public class Product implements Serializable {
 		this.productAmount = productAmount;
 	}
 
-	public List<String> getProducTag() {
+	public List<String> getProductTag() {
 		return Arrays.asList(productTag.split(","));
 	}
 

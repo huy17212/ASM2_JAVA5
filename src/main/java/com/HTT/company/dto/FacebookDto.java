@@ -17,7 +17,7 @@ import lombok.ToString;
 public class FacebookDto {
 	
 	private String id;
-	private String first_name;
+	private String email;
 	private String last_name;
 	private String middle_name;
 	private String name;

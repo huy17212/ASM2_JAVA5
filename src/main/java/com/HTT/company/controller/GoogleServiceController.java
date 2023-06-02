@@ -1,6 +1,8 @@
 package com.HTT.company.controller;
 
+import java.awt.print.Printable;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,11 +33,13 @@ public class GoogleServiceController {
 	UsersService usersService;
 
 	@GetMapping("LoginWithGoogle")
-	public String loginWithGoogle(HttpServletRequest request, @RequestParam("code") String codeToken)
+	public String loginWithGoogle(HttpServletRequest request, @RequestParam("code") String codeToken, Principal print)
 			throws ClientProtocolException, IOException {
 
 		GoogleDto user = googleUtil.getUserInfo(googleUtil.getToken(codeToken));
-
+		
+		
+		
 		// create principal
 		UserDetails userDetail = googleUtil.buildUser(user);
 
@@ -44,7 +48,8 @@ public class GoogleServiceController {
 
 		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
+		
+		
 		// check the duplicated in database, if true -> create new account, nor login
 		// with that account.
 		Optional<Users> userTemporaty = Optional.ofNullable(usersService.findByGmail(user.getEmail()));
@@ -53,9 +58,9 @@ public class GoogleServiceController {
 			Users parsingUserEntity = GoogleDtoUtils.GoogleDtoParseToUsers(user);
 			usersService.create(parsingUserEntity);
 		} else {
-			return "views/RegisterForm";
+			return "redirect:/loginsuccessful";
 		}
 
-		return "views/RegisterForm";
+		return "redirect:/loginsuccessful";
 	}
 }

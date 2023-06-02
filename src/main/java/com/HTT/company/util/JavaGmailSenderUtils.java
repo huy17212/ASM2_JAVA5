@@ -33,10 +33,12 @@ public class JavaGmailSenderUtils {
 			helper.setSubject("Utora Activated Hyperlink.");
 			helper.setFrom(ApplicationConstant.GMAIL_ADDRESS_COMPANY);
 			helper.setTo(AddressGmailTo);
+			
+			System.out.println("kaka finder" + users.toString());
 
-			String content = "<b>Gettings " + users.getUsername() + "</b>,"
+			String content = "<b>Gettings " + users.getUsersId() + "</b>,"
 					+ "<br><i>Please click this hyberlink to activated your account:.</i>" + "<br>" + "<form action='"
-				    + hyperlink + "?tokenCreateAccount=" + ApplicationConstant.TRUE_TOKEN_FOR_CREATE_NEW_ACCOUNT
+				    + "https://localhost:8082/activatedAccount?tokenCreateAccount=" + ApplicationConstant.TRUE_TOKEN_FOR_CREATE_NEW_ACCOUNT
 					+ "' method='POST' >" + "<button type='submit'>Activated account!</button>" + "</form>"
 					+ "<br><img src='cid:image001'/><br><b>Best Regards</b>";
 			helper.setText(content, true);
