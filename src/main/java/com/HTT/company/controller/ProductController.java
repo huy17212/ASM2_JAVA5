@@ -48,10 +48,9 @@ public class ProductController {
 		// ListConstaint.USER_CART.add(productId);
 		
 		// -1 amount product;
-		productService.
 		
 		productService.findByProductId(thing);
-		product
+
 		
 		Cookie[] cookies = request.getCookies();
 
