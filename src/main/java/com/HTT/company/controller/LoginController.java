@@ -93,13 +93,12 @@ public class LoginController {
 	public String createNewAccountStep1(@ModelAttribute(name = "Users") Users entity, Model modelView,
 			HttpSession session) {
 
-		Optional<Users> accountDuplicatedUsername = Optional
-				.ofNullable(userService.findByUserName(entity.getUsersId()));
-		Optional<Users> accountDuplicatedGmail = Optional.ofNullable(userService.findByUserName(entity.getGmail()));
+		Users accountDuplicatedUsername = userService.findByUserName(entity.getUsersId());
+		Users accountDuplicatedGmail = userService.findByUserName(entity.getGmail());
 
 		session.setAttribute("stepOneCreateUsers", entity);
 
-		if (!accountDuplicatedUsername.isEmpty() || !accountDuplicatedGmail.isEmpty()) {
+		if (accountDuplicatedUsername != null || accountDuplicatedGmail != null) {
 			modelView.addAttribute("errorResponse", "Duplicated Username or Gmail. Please use correct one.");
 			return "views/RegisterForm";
 		}
@@ -157,7 +156,7 @@ public class LoginController {
 		return "redirect:/index";
 	}
 
-	@RequestMapping(value = "/loginsuccessful", method = RequestMethod.GET)
+//	@RequestMapping(value = "/loginsuccessful", method = RequestMethod.GET)
 	public String userInfo(Model model, Principal principal, HttpSession session) {
 
 		// Sau khi user login thanh cong se co

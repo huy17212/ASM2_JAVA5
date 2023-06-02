@@ -29,15 +29,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 		
-		Optional<Users> usersEntity = Optional.ofNullable(this.usersDao.findByUsersName(userName));
-		
-		if (usersEntity.isEmpty()) {
-			throw new UsernameNotFoundException("User " + userName + " was not found in the database");
-		}
+		Users usersEntity = this.usersDao.findByUsersName(userName);
 
-		GrantedAuthority authority = new SimpleGrantedAuthority(usersEntity.get().getIsAdmin() ? "ROLE_ADMIN" : "ROLE_USER");
+		GrantedAuthority authority = new SimpleGrantedAuthority(usersEntity.getIsAdmin() ? "ROLE_ADMIN" : "ROLE_USER");
 		grantList.add(authority);
-		UserDetails userDetails = (UserDetails) new User(usersEntity.get().getUsersId(), usersEntity.get().getPassWord(), grantList);
+		UserDetails userDetails = (UserDetails) new User(usersEntity.getUsersId(), usersEntity.getPassWord(), grantList);
 		return userDetails;
 	}
 
