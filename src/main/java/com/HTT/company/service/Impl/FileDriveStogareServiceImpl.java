@@ -74,7 +74,7 @@ public class FileDriveStogareServiceImpl implements JavaFileDriveStogareService 
             googleDriveFile.setName(file.getOriginalFilename());
 
             // Set the MIME type of the file
-            String mimeType = "application/octet-stream";
+            String mimeType = "image/jpeg";
             googleDriveFile.setMimeType(mimeType);
 
          // Create a FileContent object from the uploaded file
