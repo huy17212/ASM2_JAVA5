@@ -26,7 +26,7 @@ public class FilesStorageServiceImpl implements JavaFileStorageService {
 			Path destinationPath = Paths.get("C:\\Users\\Huy1721\\Desktop\\Spring_projectsn\\ASM2_JAVA5_HHT\\uploads\\" + file.getOriginalFilename());
 			System.out.println("kaka1 " + destinationPath);
 			long num = Files.copy(file.getInputStream(), destinationPath);
-			System.out.println("kaka2 " + destinationPath);
+			System.out.println("kaka2 " + num);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
