@@ -2,6 +2,7 @@ package com.HTT.company.service.Impl;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,7 +24,7 @@ public class FilesStorageServiceImpl implements JavaFileStorageService {
 	@Override
 	public void save(MultipartFile file) {
 		try {
-			Path destinationPath = Paths.get("C:\\Users\\Huy1721\\Desktop\\Spring_projectsn\\ASM2_JAVA5_HHT\\uploads\\" + file.getOriginalFilename());
+			Path destinationPath = Paths.get("C:\\Users\\Huy1721\\Desktop\\Spring_projectsn\\ASM2_JAVA5_HHT\\uploads\\");
 			System.out.println("kaka1 " + destinationPath);
 			long num = Files.copy(file.getInputStream(), destinationPath);
 			System.out.println("kaka2 " + num);
