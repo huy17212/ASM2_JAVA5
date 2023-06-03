@@ -38,7 +38,7 @@ public class JavaGmailSenderUtils {
 
 			String content = "<b>Gettings " + users.getUsersId() + "</b>,"
 					+ "<br><i>Please click this hyberlink to activated your account:.</i>" + "<br>" + "<form action='"
-				    + "https://localhost:8082/activatedAccount?tokenCreateAccount=" + ApplicationConstant.TRUE_TOKEN_FOR_CREATE_NEW_ACCOUNT
+				    + "https://ustora.herokuapp.com/activatedAccount?tokenCreateAccount=" + ApplicationConstant.TRUE_TOKEN_FOR_CREATE_NEW_ACCOUNT
 					+ "' method='POST' >" + "<button type='submit'>Activated account!</button>" + "</form>"
 					+ "<br><img src='cid:image001'/><br><b>Best Regards</b>";
 			helper.setText(content, true);
