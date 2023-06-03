@@ -116,7 +116,7 @@ public class LoginController {
 		return "views/ConfirmEmailCentidental";
 	}
 
-	@PostMapping(value = "/createNewAccount2")
+	@GetMapping(value = "/createNewAccount2")
 	public String createNewAccountStep2(@RequestParam(name = "avatar") MultipartFile avatar,
 			@RequestParam(name = "accountName") String accountName, Model modelView, HttpSession session) {
 
@@ -147,7 +147,7 @@ public class LoginController {
 		usersService.create(userEntity.get());
 
 		System.out.println(userEntity.get().toString());
-		return "redirect:/index";
+		return "redirect:/welcome";
 	}
 
 	@RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
