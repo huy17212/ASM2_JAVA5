@@ -7,7 +7,7 @@ public class GoogleLoginTokenConstant {
 
 	public static String GOOGLE_CLIENT_SECRET = "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";
 
-	public static String GOOGLE_REDIRECT_URI = "https://localhost:8082/LoginWithGoogle";
+	public static String GOOGLE_REDIRECT_URI = "https://ustora.herokuapp.com/LoginWithGoogle";
 
 	public static String GOOGLE_LINK_GET_TOKEN = "https://accounts.google.com/o/oauth2/token";
 
