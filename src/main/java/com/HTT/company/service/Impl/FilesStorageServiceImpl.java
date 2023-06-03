@@ -23,7 +23,9 @@ public class FilesStorageServiceImpl implements JavaFileStorageService {
 	@Override
 	public void save(MultipartFile file) {
 		try {
-			Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+			Path destinationPath = Paths.get("C:\\Users\\Huy1721\\Desktop\\Spring_projectsn\\ASM2_JAVA5_HHT\\uploads\\" + file.getOriginalFilename());
+			
+			Files.copy(file.getInputStream(), destinationPath);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
