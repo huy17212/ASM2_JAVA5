@@ -50,7 +50,6 @@ public class ProductController {
 		// -1 amount product;
 		
 		productService.findByProductId(thing);
-
 		
 		Cookie[] cookies = request.getCookies();
 
