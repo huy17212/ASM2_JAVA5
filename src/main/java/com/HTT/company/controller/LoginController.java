@@ -156,7 +156,7 @@ public class LoginController {
 		return "redirect:/index";
 	}
 
-//	@RequestMapping(value = "/loginsuccessful", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginsuccessful", method = RequestMethod.GET)
 	public String userInfo(Model model, Principal principal, HttpSession session) {
 
 		// Sau khi user login thanh cong se co
