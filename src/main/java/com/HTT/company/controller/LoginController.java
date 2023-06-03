@@ -116,7 +116,7 @@ public class LoginController {
 		return "views/ConfirmEmailCentidental";
 	}
 
-	@GetMapping(value = "/createNewAccount2")
+	@PostMapping("/createNewAccount2")
 	public String createNewAccountStep2(@RequestParam(name = "avatar") MultipartFile avatar,
 			@RequestParam(name = "accountName") String accountName, Model modelView, HttpSession session) {
 
