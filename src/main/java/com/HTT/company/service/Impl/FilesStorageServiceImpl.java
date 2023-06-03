@@ -23,6 +23,8 @@ public class FilesStorageServiceImpl implements JavaFileStorageService {
 	@Override
 	public void save(MultipartFile file) {
 		try {
+			System.out.print("Kaka1 " + file);
+			System.out.print("Kaka2 " + root);
 			Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
 		} catch (Exception e) {
 			e.printStackTrace();
