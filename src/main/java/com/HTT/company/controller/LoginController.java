@@ -123,8 +123,10 @@ public class LoginController {
 		Optional<Users> userEntity = Optional.ofNullable((Users) session.getAttribute("stepOneCreateUsers"));
 
 		// Save multipart file avatar to the uploads folder.
-		fileStorageService.save(avatar);
+		//fileStorageService.save(avatar);
 
+		fileDriveService.uploadFile(avatar);
+		
 		// Create new Folder in ggdrive and upload image to that, which is store and
 		// use.
 //		File FileAvatar = fileDriveService.addNewAvatarToNewFolder(userEntity.get().getUsersId(),

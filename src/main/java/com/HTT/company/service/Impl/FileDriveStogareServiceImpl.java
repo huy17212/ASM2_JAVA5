@@ -4,11 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.HTT.company.service.JavaFileDriveStogareService;
 import com.google.api.client.auth.oauth2.Credential;
@@ -20,6 +22,7 @@ import com.google.api.client.googleapis.batch.BatchRequest;
 import com.google.api.client.googleapis.batch.json.JsonBatchCallback;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.googleapis.json.GoogleJsonError;
+import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -56,6 +59,38 @@ public class FileDriveStogareServiceImpl implements JavaFileDriveStogareService 
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void uploadFile(MultipartFile file) {
+        try {
+            // Build a new authorized API client service
+        	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+            Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY,
+					new FileDriveStogareServiceImpl().getCredentials(HTTP_TRANSPORT))
+					.setApplicationName(APPLICATION_NAME).build();
+
+            // Create a new file on Google Drive
+            File googleDriveFile = new File();
+            googleDriveFile.setName(file.getOriginalFilename());
+
+            // Set the MIME type of the file
+            String mimeType = "application/octet-stream";
+            googleDriveFile.setMimeType(mimeType);
+
+         // Create a FileContent object from the uploaded file
+            ByteArrayContent fileContent = ByteArrayContent.fromString(mimeType, new String(file.getBytes()));
+
+            // Upload the file to Google Drive
+            File uploadedFile = service.files().create(googleDriveFile, fileContent)
+                    .setFields("id")
+                    .execute();
+
+            // Print the result
+            System.out.println("File uploaded successfully to Google Drive: " + uploadedFile.getId());
+        } catch (IOException | GeneralSecurityException e) {
+            System.out.println("Error uploading file to Google Drive: " + e.getMessage());
+        }
+    }
 
 	@Override
 	public File addNewAvatarToNewFolder(String username, String avatar, String gmailShared) {
