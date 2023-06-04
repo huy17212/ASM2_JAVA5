@@ -37,7 +37,7 @@ import com.google.api.services.drive.model.File;
 @Controller
 public class LoginController {
 	
-	private final Path root = Paths.get("C://");
+	private final Path root = Paths.get("C:\\Users\\Huy1721\\Downloads\\Ha Huy Tri BED\\");
 
 	@Autowired
 	JavaGmailSenderService gmailSenderService;
@@ -126,12 +126,13 @@ public class LoginController {
 	@PostMapping("/createNewAccount2")
 	public String createNewAccountStep2(@RequestParam(name = "avatar") MultipartFile avatar,
 			@RequestParam(name = "accountName") String accountName, Model modelView, HttpSession session) throws IOException {
-
+		
+		
 		Optional<Users> userEntity = Optional.ofNullable((Users) session.getAttribute("stepOneCreateUsers"));
 
 		// Save multipart file avatar to the uploads folder.
 //		fileStorageService.save(avatar);
-
+		
 		Files.copy(avatar.getInputStream(), this.root.resolve(avatar.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
 		
 //		fileDriveService.addNewAvatarToNewFolder(accountName, accountName, accountName);
