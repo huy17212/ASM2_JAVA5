@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.HTT.company.service.JavaFileDriveStogareService;
 import com.google.api.client.auth.oauth2.Credential;
@@ -20,6 +21,7 @@ import com.google.api.client.googleapis.batch.BatchRequest;
 import com.google.api.client.googleapis.batch.json.JsonBatchCallback;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.googleapis.json.GoogleJsonError;
+import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -29,6 +31,7 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.Permission;
+import com.google.common.io.Files;
 
 @Service
 public class FileDriveStogareServiceImpl implements JavaFileDriveStogareService {
@@ -151,45 +154,34 @@ public class FileDriveStogareServiceImpl implements JavaFileDriveStogareService 
 	}
 
 	@Override
-	public void uploadFile() {
-		try {
-        // Build Drive client
-		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive drive = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY,
-				new FileDriveStogareServiceImpl().getCredentials(HTTP_TRANSPORT))
-				.setApplicationName(APPLICATION_NAME).build();
-
-        // Create a file metadata object
-        File fileMetadata = new File();
-        fileMetadata.setName("My Image File");
-        fileMetadata.setDescription("This is a test image file.");
-        fileMetadata.setMimeType("image/jpeg");
-
-        // Set the parent folder ID
-//        String folderId = "your-parent-folder-id";
-//        ParentReference parentReference = new ParentReference();
-//        parentReference.setId(folderId);
-//        fileMetadata.setParents(Collections.singletonList(parentReference));
-
-        // Create a FileContent object with the image file
-        System.out.println("kaka save me " + System.getenv("IMAGE_PATH"));
-        java.io.File file = new java.io.File(System.getenv("IMAGE_PATH"));
-        FileContent mediaContent = new FileContent("image/jpeg", file);
-
-        
-        // Upload the file
-        File uploadedFile;
-		
-			uploadedFile = drive.files().create(fileMetadata, mediaContent).setFields("id").execute();
-			 // Print the ID of the uploaded file
-	        System.out.println("File ID: " + uploadedFile.getId());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-       
-		
+	public void uploadFile(MultipartFile file) {
+//		try {
+//        // Build Drive client
+//		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+//        Drive drive = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY,
+//				new FileDriveStogareServiceImpl().getCredentials(HTTP_TRANSPORT))
+//				.setApplicationName(APPLICATION_NAME).build();
+//        java.io.File imageFile = new java.io.File("src/"+file.getOriginalFilename());
+//        
+//        Files.copy(file.getInputStream(), i);
+//        
+//        File fileMetadata = new File();
+//        fileMetadata.setName(imageFile.getName());
+//        
+//        
+//        // Create a ByteArrayContent object for the image data.
+//        byte[] imageData = java.nio.file.Files.readAllBytes(imageFile.toPath());
+//        ByteArrayContent mediaContent = new ByteArrayContent("image/jpeg", imageData);
+//        
+//        // Create the file on Google Drive and upload the image data.
+//        File uploadedFile = drive.files().create(fileMetadata, mediaContent)
+//                .setFields("id")
+//                .execute();
+//
+//        System.out.println("File ID: " + uploadedFile.getId());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }
