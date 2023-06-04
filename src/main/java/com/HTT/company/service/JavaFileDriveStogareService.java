@@ -2,7 +2,8 @@ package com.HTT.company.service;
 
 import java.io.IOException;
 
-import org.springframework.web.multipart.MultipartFile;
+import javax.servlet.http.Part;
+
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -10,7 +11,7 @@ import com.google.api.services.drive.model.File;
 
 public interface JavaFileDriveStogareService {
 	
-	void uploadFile(MultipartFile file);
+	void uploadFile(Part file);
 	
 	void createNewFolderDrive(String name);
 	
