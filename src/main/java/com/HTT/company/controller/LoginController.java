@@ -36,7 +36,7 @@ import com.google.api.services.drive.model.File;
 
 @Controller
 public class LoginController {
-	
+
 	private final Path root = Paths.get("C:/Users/Huy1721/Downloads");
 
 	@Autowired
@@ -56,7 +56,7 @@ public class LoginController {
 
 	@RequestMapping(value = { "/", "/welcome", "/index", "/home", "/Callback" }, method = RequestMethod.GET)
 	public String welcomePage(Model model, Principal printPrincipal) {
-		System.out.print("po tin " +printPrincipal);
+		System.out.print("po tin " + printPrincipal);
 		model.addAttribute("title", "Welcome");
 		model.addAttribute("message", "This is welcome page!");
 		return "views/another_view/index";
@@ -125,16 +125,26 @@ public class LoginController {
 
 	@PostMapping("/createNewAccount2")
 	public String createNewAccountStep2(@RequestParam(name = "avatar") MultipartFile avatar,
-			@RequestParam(name = "accountName") String accountName, Model modelView, HttpSession session) throws IOException {
-		
-		
+			@RequestParam(name = "accountName") String accountName, Model modelView, HttpSession session)
+			throws IOException {
+
 		Optional<Users> userEntity = Optional.ofNullable((Users) session.getAttribute("stepOneCreateUsers"));
+
+		String originalFilename = avatar.getOriginalFilename().replaceAll(" ", "_");
+
+		// Create a new File object with the absolute path
+		var newFile = new java.io.File("D:/CUA HA HUY TRI/" + originalFilename);
+
+		// Save the uploaded file to the new file location
+		avatar.transferTo(newFile);
+
+		// Get the absolute file path
+		String absolutePath = newFile.getAbsolutePath();
+		System.out.println("Absolute file path: " + absolutePath);
 
 		// Save multipart file avatar to the uploads folder.
 //		fileStorageService.save(avatar);
-		
-		Files.copy(avatar.getInputStream(), this.root.resolve(avatar.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
-		
+
 //		fileDriveService.addNewAvatarToNewFolder(accountName, accountName, accountName);
 //		
 //		// Create new Folder in ggdrive and upload image to that, which is store and
