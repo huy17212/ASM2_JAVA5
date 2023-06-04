@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.servlet.http.Part;
-
 import org.springframework.stereotype.Service;
 
 import com.HTT.company.service.JavaFileDriveStogareService;
@@ -153,8 +151,42 @@ public class FileDriveStogareServiceImpl implements JavaFileDriveStogareService 
 	}
 
 	@Override
-	public void uploadFile(Part file) {
+	public void uploadFile() {
+		try {
+        // Build Drive client
+		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Drive drive = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY,
+				new FileDriveStogareServiceImpl().getCredentials(HTTP_TRANSPORT))
+				.setApplicationName(APPLICATION_NAME).build();
+
+        // Create a file metadata object
+        File fileMetadata = new File();
+        fileMetadata.setName("My Image File");
+        fileMetadata.setDescription("This is a test image file.");
+        fileMetadata.setMimeType("image/jpeg");
+
+        // Set the parent folder ID
+//        String folderId = "your-parent-folder-id";
+//        ParentReference parentReference = new ParentReference();
+//        parentReference.setId(folderId);
+//        fileMetadata.setParents(Collections.singletonList(parentReference));
+
+        // Create a FileContent object with the image file
+        java.io.File file = new java.io.File("C:\\Users\\Huy1721\\Desktop\\web-start-training2\\anh4.jpg");
+        FileContent mediaContent = new FileContent("image/jpeg", file);
+
+        // Upload the file
+        File uploadedFile;
 		
+			uploadedFile = drive.files().create(fileMetadata, mediaContent).setFields("id").execute();
+			 // Print the ID of the uploaded file
+	        System.out.println("File ID: " + uploadedFile.getId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+       
 		
 	}
 

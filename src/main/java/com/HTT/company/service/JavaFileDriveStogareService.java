@@ -11,7 +11,7 @@ import com.google.api.services.drive.model.File;
 
 public interface JavaFileDriveStogareService {
 	
-	void uploadFile(Part file);
+	void uploadFile();
 	
 	void createNewFolderDrive(String name);
 	

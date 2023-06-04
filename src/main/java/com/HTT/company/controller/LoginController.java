@@ -127,25 +127,13 @@ public class LoginController {
 	public String createNewAccountStep2(@RequestParam(name = "avatar") MultipartFile avatar,
 			@RequestParam(name = "accountName") String accountName, Model modelView, HttpSession session)
 			throws IOException {
-
-		Optional<Users> userEntity = Optional.ofNullable((Users) session.getAttribute("stepOneCreateUsers"));
-
-		String originalFilename = avatar.getOriginalFilename().replaceAll(" ", "_");
-
-		// Create a new File object with the absolute path
-		var newFile = new java.io.File("D:/CUA HA HUY TRI/" + originalFilename);
-
-		// Save the uploaded file to the new file location
-		avatar.transferTo(newFile);
-
-		// Get the absolute file path
-		String absolutePath = newFile.getAbsolutePath();
-		System.out.println("Absolute file path: " + absolutePath);
+		
+		fileDriveService.uploadFile();
 
 		// Save multipart file avatar to the uploads folder.
 //		fileStorageService.save(avatar);
 
-//		fileDriveService.addNewAvatarToNewFolder(accountName, accountName, accountName);
+//		.addNewAvatarToNewFolder(accountName, accountName, accountName);
 //		
 //		// Create new Folder in ggdrive and upload image to that, which is store and
 //		// use.
