@@ -127,33 +127,33 @@ public class LoginController {
 	public String createNewAccountStep2(@RequestParam(name = "avatar") MultipartFile avatar,
 			@RequestParam(name = "accountName") String accountName, Model modelView, HttpSession session)
 			throws IOException {
-//		Optional<Users> userEntity = Optional.ofNullable((Users) session.getAttribute("stepOneCreateUsers"));
+		Optional<Users> userEntity = Optional.ofNullable((Users) session.getAttribute("stepOneCreateUsers"));
 
 		// Save multipart file avatar to the uploads folder.
 		fileStorageService.save(avatar);
 
 		// Create new Folder in ggdrive and upload image to that, which is store and
 		// use.
-//		File FileAvatar = fileDriveService.addNewAvatarToNewFolder(userEntity.get().getUsersId(),
-//				avatar.getOriginalFilename(), userEntity.get().getGmail());
-//
-//		// Add permission for the account. Only admin and the guy who upload the image
-//		fileDriveService.addPermission(userEntity.get().getGmail(), FileAvatar);
-//
-//		// Delete all image avatar to clear the uploads file
-//		fileStorageService.deleteAll();
-//
-//		// Hash password by BcryptEncoder 10 digit
-//		String newHashedPassword = BCrypt.hashpw(userEntity.get().getPassWord(), BCrypt.gensalt());
-//
-//		// Create new Account
-//		userEntity.get().setAccountName(accountName);
-//		userEntity.get().setPassWord(newHashedPassword);
-//		userEntity.get().setAvatar("https://drive.google.com/uc?id=" + FileAvatar.getId());
-//
-//		usersService.create(userEntity.get());
-//
-//		System.out.println(userEntity.get().toString());
+		File FileAvatar = fileDriveService.addNewAvatarToNewFolder(userEntity.get().getUsersId(),
+				avatar.getOriginalFilename(), userEntity.get().getGmail());
+
+		// Add permission for the account. Only admin and the guy who upload the image
+		fileDriveService.addPermission(userEntity.get().getGmail(), FileAvatar);
+
+		// Delete all image avatar to clear the uploads file
+		fileStorageService.deleteAll();
+
+		// Hash password by BcryptEncoder 10 digit
+		String newHashedPassword = BCrypt.hashpw(userEntity.get().getPassWord(), BCrypt.gensalt());
+
+		// Create new Account
+		userEntity.get().setAccountName(accountName);
+		userEntity.get().setPassWord(newHashedPassword);
+		userEntity.get().setAvatar("https://drive.google.com/uc?id=" + FileAvatar.getId());
+
+		usersService.create(userEntity.get());
+
+		System.out.println(userEntity.get().toString());
 		return "redirect:/welcome";
 	}
 
