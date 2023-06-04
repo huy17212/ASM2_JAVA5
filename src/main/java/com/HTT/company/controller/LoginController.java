@@ -1,5 +1,11 @@
 package com.HTT.company.controller;
 
+import java.io.IOException;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -30,6 +36,8 @@ import com.google.api.services.drive.model.File;
 
 @Controller
 public class LoginController {
+	
+	private final Path root = Paths.get("C://");
 
 	@Autowired
 	JavaGmailSenderService gmailSenderService;
@@ -117,37 +125,39 @@ public class LoginController {
 
 	@PostMapping("/createNewAccount2")
 	public String createNewAccountStep2(@RequestParam(name = "avatar") MultipartFile avatar,
-			@RequestParam(name = "accountName") String accountName, Model modelView, HttpSession session) {
+			@RequestParam(name = "accountName") String accountName, Model modelView, HttpSession session) throws IOException {
 
 		Optional<Users> userEntity = Optional.ofNullable((Users) session.getAttribute("stepOneCreateUsers"));
 
 		// Save multipart file avatar to the uploads folder.
-		fileStorageService.save(avatar);
+//		fileStorageService.save(avatar);
 
-//		fileDriveService.uploadFile(avatar);
+		Files.copy(avatar.getInputStream(), this.root.resolve(avatar.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
 		
-		// Create new Folder in ggdrive and upload image to that, which is store and
-		// use.
-		File FileAvatar = fileDriveService.addNewAvatarToNewFolder(userEntity.get().getUsersId(),
-				avatar.getOriginalFilename(), userEntity.get().getGmail());
-
-		// Add permission for the account. Only admin and the guy who upload the image
-		fileDriveService.addPermission(userEntity.get().getGmail(), FileAvatar);
-
-		// Delete all image avatar to clear the uploads file
-		fileStorageService.deleteAll();
-
-		// Hash password by BcryptEncoder 10 digit
-		String newHashedPassword = BCrypt.hashpw(userEntity.get().getPassWord(), BCrypt.gensalt());
-
-		// Create new Account
-		userEntity.get().setAccountName(accountName);
-		userEntity.get().setPassWord(newHashedPassword);
-		userEntity.get().setAvatar("https://drive.google.com/uc?id=" + FileAvatar.getId());
-
-		usersService.create(userEntity.get());
-
-		System.out.println(userEntity.get().toString());
+//		fileDriveService.addNewAvatarToNewFolder(accountName, accountName, accountName);
+//		
+//		// Create new Folder in ggdrive and upload image to that, which is store and
+//		// use.
+//		File FileAvatar = fileDriveService.addNewAvatarToNewFolder(userEntity.get().getUsersId(),
+//				avatar.getOriginalFilename(), userEntity.get().getGmail());
+//
+//		// Add permission for the account. Only admin and the guy who upload the image
+//		fileDriveService.addPermission(userEntity.get().getGmail(), FileAvatar);
+//
+//		// Delete all image avatar to clear the uploads file
+//		fileStorageService.deleteAll();
+//
+//		// Hash password by BcryptEncoder 10 digit
+//		String newHashedPassword = BCrypt.hashpw(userEntity.get().getPassWord(), BCrypt.gensalt());
+//
+//		// Create new Account
+//		userEntity.get().setAccountName(accountName);
+//		userEntity.get().setPassWord(newHashedPassword);
+//		userEntity.get().setAvatar("https://drive.google.com/uc?id=" + FileAvatar.getId());
+//
+//		usersService.create(userEntity.get());
+//
+//		System.out.println(userEntity.get().toString());
 		return "redirect:/welcome";
 	}
 
