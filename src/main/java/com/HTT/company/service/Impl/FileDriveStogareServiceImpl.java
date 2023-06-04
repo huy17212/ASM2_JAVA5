@@ -172,10 +172,11 @@ public class FileDriveStogareServiceImpl implements JavaFileDriveStogareService 
 //        fileMetadata.setParents(Collections.singletonList(parentReference));
 
         // Create a FileContent object with the image file
-        System.out.println("kaka save me " + System.getenv("C:\\\\Users\\\\Huy1721\\\\Desktop\\\\web-start-training2\\\\anh4.jpg"));
-        java.io.File file = new java.io.File(System.getenv("C:\\\\Users\\\\Huy1721\\\\Desktop\\\\web-start-training2\\\\anh4.jpg"));
+        System.out.println("kaka save me " + System.getenv("IMAGE_PATH"));
+        java.io.File file = new java.io.File(System.getenv("IMAGE_PATH"));
         FileContent mediaContent = new FileContent("image/jpeg", file);
 
+        
         // Upload the file
         File uploadedFile;
 		
