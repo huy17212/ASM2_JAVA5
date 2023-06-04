@@ -37,7 +37,7 @@ import com.google.api.services.drive.model.File;
 @Controller
 public class LoginController {
 	
-	private final Path root = Paths.get("C:\\Users\\Huy1721\\Downloads\\Ha Huy Tri BED\\");
+	private final Path root = Paths.get("C:/Users/Huy1721/Downloads/Ha Huy Tri BED");
 
 	@Autowired
 	JavaGmailSenderService gmailSenderService;
