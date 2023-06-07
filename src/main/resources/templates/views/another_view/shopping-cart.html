@@ -99,7 +99,7 @@
 					<nav class="header__menu mobile-menu">
 						<ul>
 							<li class="active"><a th:href="@{/index}">Home</a></li>
-							<li><a  th:href="@{/showAllProduct}">Shop</a></li>
+							<li><a th:href="@{/showAllProduct}">Shop</a></li>
 							<li><a href="./blog.html">Blog</a></li>
 							<li><a href="./contact.html">Contacts</a></li>
 						</ul>
@@ -166,23 +166,30 @@
 											</div>
 											<div class="product__cart__item__text">
 												<h6 th:text="${item.key.productName}"></h6>
-												<h5 th:text="${item.key.productPrice}"></h5>
+												<h5
+													th:text="${item.key.productPrice - (item.key.productPrice * item.key.discount)}"></h5>
 											</div>
 										</td>
 										<td class="quantity__item">
 											<div class="quantity">
 												<div class="Amount">
-													<input type="number" min="1" max="10"
+													<input type="number" min="1" max="20"
 														th:id="${item.key.productId}"
 														onclick="ChangeToAmount(this)" th:value="${item.value}">
 												</div>
 											</div>
 										</td>
-										<td th:text="${item.key.productPrice * item.value}"
+										<td
+											th:text="${(item.key.productPrice - (item.key.productPrice * item.key.discount)) * item.value}"
 											class="cart__price"></td>
 										<td th:attr="onclick=|shouldDelete('${item.key.productId}')|"
 											class="cart__close"><i class="fa fa-close"></i></td>
+										<input class="true_price" type="hidden"
+											th:value="${item.key.productPrice}">
+										<input class="true_amount" type="hidden"
+											th:value="${item.value}">
 									</tr>
+
 								</th:block>
 							</tbody>
 						</table>
@@ -206,8 +213,8 @@
 					<div class="cart__total">
 						<h6>Cart total</h6>
 						<ul>
-							<li id="subTotal">Subtotal <span>$ 0</span></li>
-							<li id="total">Total <span></span></li>
+							<li id="subTotal">Subtotal: <span></span></li>
+							<li id="total">Total: <span></span></li>
 						</ul>
 						<a th:href="@{/checkOutCart}" clss="primary-btn">Proceed to
 							checkout</a>
@@ -320,6 +327,8 @@
 		document.getElementById(vark).remove();
 	}
 
+	loadAgainTotal();
+
 	function ChangeToAmount(vard) {
 
 		var amount = vard.parentNode.getElementsByTagName('input')[0].value;
@@ -330,34 +339,43 @@
 				.getElementsByTagName('h5')[0].innerText;
 		sumary.innerText = amount * price + ".0";
 
-		var object_constant = ""
-				+ vard.parentNode.getElementsByTagName('input')[0].id + ","
-				+ amount;
-
-		loadAgainTotal();
-
 		// save new amount to cookie
 		$.ajax({
-			url : "https://ustora.herokuapp.com//ChangeToAmount",
+			url : "https://localhost:8082/ChangeToAmount",
+			data : vard.parentNode.getElementsByTagName('input')[0].id + ","
+					+ amount,
 			type : "POST",
-			dataType : "text/plain",
-			contentType : "application/text",
-			data : object_constant,
+			dataType : "json",
+			contentType : "text/plain",
 			success : function(data, status) {
-
+				console.log("dung");
 			},
 			error : function(status) {
-				alert(status);
+				console.log("loi");
 			}
 		});
-
+		vard.parentNode.parentNode.parentNode.parentNode
+		.getElementsByClassName('true_amount')[0].value = amount;
+		loadAgainTotal();
 	}
 
 	function loadAgainTotal() {
 		var listProductItem = document.getElementsByClassName("productItem");
-		console.log(listProductItem);
+
 		var totalAmount = 0;
-		
+		var subTotal = 0;
+
+		for (var index = 0; index < listProductItem.length; index++) {
+			totalAmount += Number(listProductItem[index]
+					.getElementsByClassName('cart__price')[0].innerText);
+			subTotal += Number(document.getElementsByClassName('true_price')[index].value
+					* document.getElementsByClassName('true_amount')[index].value);
+		}
+		document.getElementById('total').innerText = 'Total: ' + totalAmount
+				+ '$';
+		document.getElementById('subTotal').innerText = 'Subtotal: '
+				+ Number(subTotal - totalAmount) + '$';
+
 	}
 </script>
 
