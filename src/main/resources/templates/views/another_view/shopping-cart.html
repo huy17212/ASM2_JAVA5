@@ -349,16 +349,15 @@
 		// save new amount to cookie
 		$.ajax({
 			url : "https://ustora.herokuapp.com/ChangeToAmount",
-			data : vard.parentNode.getElementsByTagName('input')[0].id + ","
-					+ amount,
+			data : vard.parentNode.getElementsByTagName('input')[0].id + ","+ amount,
 			type : "POST",
 			dataType : "json",
 			contentType : "text/plain",
 			success : function(data, status) {
-				console.log("dung");
+				console.log(status);
 			},
 			error : function(status) {
-				console.log("loi");
+				console.log(status);
 			}
 		});
 		vard.parentNode.parentNode.parentNode.parentNode
