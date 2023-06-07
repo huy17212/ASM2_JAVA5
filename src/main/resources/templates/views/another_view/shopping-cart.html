@@ -216,8 +216,15 @@
 							<li id="subTotal">Subtotal: <span></span></li>
 							<li id="total">Total: <span></span></li>
 						</ul>
-						<a th:href="@{/checkOutCart}" clss="primary-btn">Proceed to
-							checkout</a>
+						<form th:action="@{/checkOutCart}" method="POST">
+							
+							<input type="hidden" id="true_total" name="true_total">
+							<input type="hidden" id="true_subTotal" name="true_subTotal">
+							
+							<button class="primary-btn" type="submit">Proceed to
+							checkout</button>
+						</form>
+						
 					</div>
 				</div>
 			</div>
@@ -341,7 +348,7 @@
 
 		// save new amount to cookie
 		$.ajax({
-			url : "https://localhost:8082/ChangeToAmount",
+			url : "https://ustora.herokuapp.com/ChangeToAmount",
 			data : vard.parentNode.getElementsByTagName('input')[0].id + ","
 					+ amount,
 			type : "POST",
@@ -375,7 +382,8 @@
 				+ '$';
 		document.getElementById('subTotal').innerText = 'Subtotal: '
 				+ Number(subTotal - totalAmount) + '$';
-
+		document.getElementById("true_total").value = totalAmount;
+		document.getElementById("true_subTotal").value = subTotal;
 	}
 </script>
 
