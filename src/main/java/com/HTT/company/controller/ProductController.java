@@ -107,10 +107,9 @@ public class ProductController {
 		for (Cookie item : cookies) {
 			if (item.getName().equalsIgnoreCase(productId)) {
 				response.addCookie(new Cookie(productId, amount));
-				return ResponseEntity.ok(productIdAndAmount);
+				return ResponseEntity.ok(productService.findByProductId(productId));
 			}
 		}
-
-		return ResponseEntity.ok(null);
+		return ResponseEntity.ok(productService.findByProductId(productId));
 	}
 }
