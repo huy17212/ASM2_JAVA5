@@ -228,7 +228,9 @@
                                 <div class="checkout__order__products">Product <span>Total</span></div>
                                 <ul class="checkout__total__products">
                                 	<th:block th:each="item,sub : ${mapProduct}">
-                                		<li th:text="${sub.index + '. ' + item.key.productName}"><span th:text="${item.key.productPrice * item.value + '$'}"></span></li>
+                                		<li th:text="${sub.index + '. ' + item.key.productName}">
+                                			<span th:text="huhuhihi"></span>
+                                		</li>
                                 	</th:block>
                                 </ul>
                                 <ul class="checkout__total__all">
