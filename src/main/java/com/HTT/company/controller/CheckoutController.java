@@ -32,6 +32,9 @@ public class CheckoutController {
 		// get all products in cookies
 		Map<Product, Integer> mapProduct = new LinkedHashMap<>();
 		Cookie[] cookies = request.getCookies();
+		
+		model.addAttribute("true_total", toltal);
+		model.addAttribute("true_subTotal", subTotal);
 
 		if (cookies != null) {
 			for (Cookie item : cookies) {
