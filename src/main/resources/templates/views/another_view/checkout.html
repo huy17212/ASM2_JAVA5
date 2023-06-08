@@ -287,7 +287,7 @@
                     <div class="footer__widget">
                         <h6>NewLetter</h6>
                         <div class="footer__newslatter">
-                            <p>Be the first to know about new arrivals, look books, sales & procmos!</p>
+                            <p>Be the first to know about new arrivals, look books, sales & promos!</p>
                             <form action="#">
                                 <input type="text" placeholder="Your email">
                                 <button type="submit"><span class="icon_mail_alt"></span></button>
@@ -342,15 +342,15 @@
     	
     	function checkout(){    		
     		
-    		var first_name = document.getElementById('first_name');
-    		var last_name = document.getElementById('last_name');
-    		var country = document.getElementById('country');
-    		var address = docuemnt.getElementById('address');
-    		var town_city = document.getElementById('town_city');
-    		var country_state = document.getElementById('country_state');
-    		var postcode_zip = document.getElementById('postcode_zip');
-    		var phone = document.getElementById('phone');
-    		var email = document.getElementById('email');
+    		var first_name = document.getElementById('first_name').value;
+    		var last_name = document.getElementById('last_name').value;
+    		var country = document.getElementById('country').value;
+    		var address = docuemnt.getElementById('address').value;
+    		var town_city = document.getElementById('town_city').value;
+    		var country_state = document.getElementById('country_state').value;
+    		var postcode_zip = document.getElementById('postcode_zip').value;
+    		var phone = document.getElementById('phone').value;
+    		var email = document.getElementById('email').value;
     		var send_mail = document.getElementById('send_mail').checked? "send" : "don't send";		
     		var payment = (document.querySelector('input[name=""paymethod""]:checked').value;
     		
@@ -379,7 +379,7 @@
     		}
     		
     		console.log(thing);
-    		
+    		/*
     		$.ajax({
     			url : "https://ustora.herokuapp.com/checkOrder",
     			type : "POST",
@@ -392,6 +392,7 @@
     				alert(status);
     			}
     		});
+    		*/
     	}
     
     </script>
