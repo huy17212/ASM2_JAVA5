@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.HTT.company.constant.PaypalTokenConstant;
+import com.HTT.company.dto.CheckoutDto;
 import com.HTT.company.entity.Product;
 import com.HTT.company.service.PaypalService;
 import com.HTT.company.service.ProductService;
@@ -80,8 +81,7 @@ public class CheckoutController {
 			
 			// handle in api palpay
 			try {
-				Payment payment = paypalService.createPayment(data, "http://localhost:9090/" + PaypalTokenConstant.CANCEL_URL,
-						"http://localhost:9090/" + PaypalTokenConstant.SUCCESS_URL);
+				Payment payment = paypalService.createPayment(new CheckoutDto());
 				for(Links link : payment.getLinks()) {
 					if(link.getRel().equals("approval_url")) {
 						return "redirect:"+link.getHref();
