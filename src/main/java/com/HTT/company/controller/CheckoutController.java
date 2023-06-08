@@ -12,15 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.HTT.company.dto.CheckoutDto;
 import com.HTT.company.entity.Product;
 import com.HTT.company.service.ProductService;
-import com.google.gson.Gson;
 
 @Controller
 public class CheckoutController {
@@ -51,7 +47,7 @@ public class CheckoutController {
 	}
 	
 	@PostMapping("checkOrder")
-	public ResponseEntity<?> checkOrder(@RequestBody CheckoutDto data) {
+	public ResponseEntity<?> checkOrder(@RequestParam Map<String, String> data) {
 //		
 //		CheckoutDto billWillBePay = new Gson().fromJson(data, CheckoutDto.class);
 //		
