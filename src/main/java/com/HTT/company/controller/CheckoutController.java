@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.HTT.company.entity.Product;
@@ -25,10 +27,6 @@ public class CheckoutController {
 	
 	@PostMapping("checkOutCart")
 	public String showCheckOut(@RequestParam(defaultValue = "0.0", name = "true_total") Double toltal, @RequestParam(defaultValue = "0.0", name = "true_subTotal") Double subTotal ,Model model, HttpServletRequest request, HttpServletResponse respone) {				
-		
-		System.out.println("kaka save me: " + toltal);
-		System.out.println("kaka save me: " + subTotal);
-		
 		// get all products in cookies
 		Map<Product, Integer> mapProduct = new LinkedHashMap<>();
 		Cookie[] cookies = request.getCookies();
@@ -47,9 +45,13 @@ public class CheckoutController {
 		}
 		model.addAttribute("mapProduct", new ArrayList());
 		return "views/another_view/checkout";
+	}
+	
+	@PostMapping("/checkOrder")
+	public ResponseEntity<?> checkOrder(@RequestBody String data) {
 		
 		
-
+		return ResponseEntity.ok(null);
 	}
 
 }
