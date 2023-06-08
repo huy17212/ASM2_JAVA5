@@ -2,7 +2,6 @@ package com.HTT.company.constant;
 
 public class GoogleLoginTokenConstant {
 
-
 	public static String GOOGLE_CLIENT_ID = "1087354786374-ko6j6npuog5pd07ni3qtgabaopc15e3d.apps.googleusercontent.com";
 
 	public static String GOOGLE_CLIENT_SECRET = "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";

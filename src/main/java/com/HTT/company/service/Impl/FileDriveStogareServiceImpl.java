@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.HTT.company.constant.GoogleDriveTokenConstant;
 import com.HTT.company.service.JavaFileDriveStogareService;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -21,34 +22,25 @@ import com.google.api.client.googleapis.batch.BatchRequest;
 import com.google.api.client.googleapis.batch.json.JsonBatchCallback;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.googleapis.json.GoogleJsonError;
-import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.Permission;
-import com.google.common.io.Files;
 
 @Service
 public class FileDriveStogareServiceImpl implements JavaFileDriveStogareService {
 
-	private static final String APPLICATION_NAME = "Google Drive API Java Quickstart";
-	private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-	static final String TOKENS_DIRECTORY_PATH = "tokens";
-	private static final List<String> SCOPES = Collections.singletonList("https://www.googleapis.com/auth/drive");
-	private static final String CREDENTIALS_FILE_PATH = "/client_secret.json";
 
 	@Override
 	public void createNewFolderDrive(String name) {
 		try {
 			final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-			Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY,
+			Drive service = new Drive.Builder(HTTP_TRANSPORT, GoogleDriveTokenConstant.JSON_FACTORY,
 					new FileDriveStogareServiceImpl().getCredentials(HTTP_TRANSPORT))
-					.setApplicationName(APPLICATION_NAME).build();
+					.setApplicationName(GoogleDriveTokenConstant.APPLICATION_NAME).build();
 
 			File fileMetadaFolder = new File();
 			fileMetadaFolder.setName(name);
@@ -64,9 +56,9 @@ public class FileDriveStogareServiceImpl implements JavaFileDriveStogareService 
 	public File addNewAvatarToNewFolder(String username, String avatar, String gmailShared) {
 		try {
 			final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-			Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY,
+			Drive service = new Drive.Builder(HTTP_TRANSPORT, GoogleDriveTokenConstant.JSON_FACTORY,
 					new FileDriveStogareServiceImpl().getCredentials(HTTP_TRANSPORT))
-					.setApplicationName(APPLICATION_NAME).build();
+					.setApplicationName(GoogleDriveTokenConstant.APPLICATION_NAME).build();
 
 			File fileMetaDataFolder = new File();
 			fileMetaDataFolder.setName(username);
@@ -96,15 +88,15 @@ public class FileDriveStogareServiceImpl implements JavaFileDriveStogareService 
 	@Override
 	public Credential getCredentials(NetHttpTransport HTTP_TRANSPORT) throws IOException {
 
-		InputStream in = FileDriveStogareServiceImpl.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+		InputStream in = FileDriveStogareServiceImpl.class.getResourceAsStream(GoogleDriveTokenConstant.CREDENTIALS_FILE_PATH);
 		if (in == null) {
-			throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
+			throw new FileNotFoundException("Resource not found: " + GoogleDriveTokenConstant.CREDENTIALS_FILE_PATH);
 		}
-		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(GoogleDriveTokenConstant.JSON_FACTORY, new InputStreamReader(in));
 
-		GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY,
-				clientSecrets, SCOPES)
-				.setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+		GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, GoogleDriveTokenConstant.JSON_FACTORY,
+				clientSecrets, GoogleDriveTokenConstant.SCOPES)
+				.setDataStoreFactory(new FileDataStoreFactory(new java.io.File(GoogleDriveTokenConstant.TOKENS_DIRECTORY_PATH)))
 				.setAccessType("offline").build();
 		LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
 		return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
@@ -115,9 +107,9 @@ public class FileDriveStogareServiceImpl implements JavaFileDriveStogareService 
 	public void addPermission(String Gmail, File fileHaveToPermission) {
 		try {
 			final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-			Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY,
+			Drive service = new Drive.Builder(HTTP_TRANSPORT, GoogleDriveTokenConstant.JSON_FACTORY,
 					new FileDriveStogareServiceImpl().getCredentials(HTTP_TRANSPORT))
-					.setApplicationName(APPLICATION_NAME).build();
+					.setApplicationName(GoogleDriveTokenConstant.APPLICATION_NAME).build();
 			final List<String> ids = new ArrayList<String>();
 
 			JsonBatchCallback<Permission> callback = new JsonBatchCallback<Permission>() {
@@ -141,7 +133,7 @@ public class FileDriveStogareServiceImpl implements JavaFileDriveStogareService 
 					callback);
 
 			Permission domainPermission = new Permission().setType("domain").setRole("reader");
-			domainPermission.setDomain(APPLICATION_NAME);
+			domainPermission.setDomain(GoogleDriveTokenConstant.APPLICATION_NAME);
 
 			service.permissions().create(fileHaveToPermission.getId(), domainPermission).setFields("id").queue(batch,
 					callback);

@@ -2,7 +2,6 @@ package com.HTT.company.constant;
 
 public class FacebookLoginTokenConstant {
 
-
 	public static String FACEBOOK_APP_ID  = "727775492368522";
 
 	public static String FACEBOOK_APP_SECRET  = "23ee7aa5661e5b81e22931d385534776";
