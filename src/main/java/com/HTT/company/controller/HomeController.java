@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.HTT.company.entity.Finder;
+import com.HTT.company.dto.FinderDto;
 import com.HTT.company.entity.Product;
 import com.HTT.company.enumeration.Branding;
 import com.HTT.company.enumeration.Categories;
@@ -86,7 +86,7 @@ public class HomeController {
 	@PostMapping("FindArgsConstaint")
 	public ResponseEntity<?> FindArgsConstaint( @RequestBody String find, Model model){
 		
-		Finder dinder = new Gson().fromJson(find, Finder.class);
+		FinderDto dinder = new Gson().fromJson(find, FinderDto.class);
 		
 		// 1 = categories_code
 		// 2 = brand_code

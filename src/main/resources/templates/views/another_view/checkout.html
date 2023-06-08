@@ -207,11 +207,13 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" id="list_product" value="${mapProduct}">
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
                                 <h4 class="order__title">Your order</h4>
                                 <div class="checkout__order__products">Product <span>Total</span></div>
                                 <ul class="checkout__total__products">
+                                 	
                                 	<th:block th:each="item,sub : ${mapProduct}">
                                 		<li> 
                                 			<span style="width: 245px;" th:text="${sub.index + '. ' + item.key.productName + ' x' + item.value}"></span>
@@ -220,20 +222,20 @@
                                 	</th:block>
                                 </ul>
                                 <ul class="checkout__total__all">
-                                	<li>Coupon: <span th:text ="${true_subTotal - true_total + '$'}"></span></li>
-                                    <li>Subtotal: <span th:text ="${true_subTotal - true_total + '$'}"></span></li>
-                                    <li>Total: <span th:text ="${true_total +'$'}"></span></li>
+                                	<li>Coupon: <span id="coupon" th:text ="${true_subTotal - true_total + '$'}"></span></li>
+                                    <li>Subtotal: <span id="subTotal" th:text ="${true_subTotal - true_total + '$'}"></span></li>
+                                    <li>Total: <span id="total" th:text ="${true_total +'$'}"></span></li>
                                 </ul>
-                                <input type="checkbox" value="Payment"> Send mail to confirm?
+                                <input type="checkbox" checked="checked" id="send_mail"> Send mail to confirm?
                                 <p>For information about products that can't be returned, see Items that Can't be Returned.
 								To determine if a product sold by Amazon.com has a longer return timeline, locate the product type below. If the product type isn't listed or doesn't state another returns time frame, our standard 30-day return policy applies.
 								While most sellers offer a returns policy equivalent to Amazon's, some seller returns policies may vary. If the seller's listing is eligible for Amazon Prime, it will be subject to the same return policies as items fulfilled by Amazon.com that are outlined on this page.</p>
                                 <ul>
                                 	<li>
-                                		 <input type="radio" value="Payment" name="paymethod"> Payment
+                                		 <input style="list-style-type: none;" type="radio" checked="checked" value="Payment" name="paymethod"> Payment
                                 	</li>
                                 	<li>
-                                		 <input type="radio" value="Paypal" name="paymethod"> Paypal
+                                		 <input style="list-style-type: none;" type="radio" value="Paypal" name="paymethod"> Paypal
                                 	</li>
                                 </ul>
                                 <button onclick="checkout()" class="site-btn">PLACE ORDER</button>
@@ -339,12 +341,49 @@
     <script type="text/javascript">
     	
     	function checkout(){    		
+    		
+    		var first_name = document.getElementById('first_name');
+    		var last_name = document.getElementById('last_name');
+    		var country = document.getElementById('country');
+    		var address = docuemnt.getElementById('address');
+    		var town_city = document.getElementById('town_city');
+    		var country_state = document.getElementById('country_state');
+    		var postcode_zip = document.getElementById('postcode_zip');
+    		var phone = document.getElementById('phone');
+    		var email = document.getElementById('email');
+    		var send_mail = document.getElementById('send_mail').checked? "send" : "don't send";		
+    		var payment = (document.querySelector('input[name=""paymethod""]:checked').value;
+    		
+    		var map_product = document.getElementById('list_product').value;
+    		
+    		var coupon = document.getElementById('coupon').innerText;
+    		var subTotal = document.getElementById('subTotal').innerText;
+    		var total = document.getElementById('total').innerText;
+
+    		var thing  = {
+    				firstName: first_name,
+    				lastName: last_name,
+    				country: country,
+    				address: address,	
+    				townCity: town_city,
+    				countryState: country_state,
+    				postcodeZip: postcode_zip,
+    				phone : phone,
+    				email : email,
+    				sendMail : send_mail,
+    				payment : payment,
+    				mapProduct: map_product,
+    				coupon: coupon,
+    				subTotal: subTotal,
+    				total: total
+    		}
+    		
     		$.ajax({
-    			url : url,
+    			url : "https://ustora.herokuapp.com/checkOrder",
     			type : "POST",
     			dataType : "text",
     			contentType : "application/json",
-    			data : thing,
+    			data : JSON.stringify(thing),
     			success : function(data, status) {
     				alert(data);
     			},error : function(status) {

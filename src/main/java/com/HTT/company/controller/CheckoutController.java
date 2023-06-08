@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.HTT.company.dto.CheckoutDto;
 import com.HTT.company.entity.Product;
 import com.HTT.company.service.ProductService;
+import com.google.gson.Gson;
 
 @Controller
 public class CheckoutController {
@@ -50,6 +52,9 @@ public class CheckoutController {
 	@PostMapping("/checkOrder")
 	public ResponseEntity<?> checkOrder(@RequestBody String data) {
 		
+		CheckoutDto billWillBePay = new Gson().fromJson(data, CheckoutDto.class);
+		
+		System.out.print("Kaka Huy Tri " +billWillBePay);
 		
 		return ResponseEntity.ok(null);
 	}

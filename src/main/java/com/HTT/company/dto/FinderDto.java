@@ -1,4 +1,4 @@
-package com.HTT.company.entity;
+package com.HTT.company.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class Finder {
+public class FinderDto {
 
 	private String CATEGORIES_CODE;
 	
