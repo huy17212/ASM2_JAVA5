@@ -51,11 +51,11 @@ public class CheckoutController {
 	}
 	
 	@PostMapping("checkOrder")
-	public ResponseEntity<?> checkOrder(@RequestBody String data) {
-		
-		CheckoutDto billWillBePay = new Gson().fromJson(data, CheckoutDto.class);
-		
-		System.out.print("Kaka Huy Tri " +billWillBePay);
+	public ResponseEntity<?> checkOrder(@RequestBody CheckoutDto data) {
+//		
+//		CheckoutDto billWillBePay = new Gson().fromJson(data, CheckoutDto.class);
+//		
+		System.out.print("Kaka Huy Tri " +data.toString());
 		
 		return ResponseEntity.ok(null);
 	}
