@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.HTT.company.constant.PaypalTokenConstant;
 import com.HTT.company.dto.CheckoutDto;
 import com.HTT.company.entity.Product;
 import com.HTT.company.service.PaypalService;
@@ -80,17 +79,14 @@ public class CheckoutController {
 			// check if them has confirm in mail
 			
 			// handle in api palpay
-			try {
+
 				Payment payment = paypalService.createPayment(new CheckoutDto());
 				for(Links link : payment.getLinks()) {
 					if(link.getRel().equals("approval_url")) {
 						return "redirect:"+link.getHref();
 					}
 				}
-				
-			} catch (PayPalRESTException e) {
-				e.printStackTrace();
-			}
+
 			return "redirect:/";
 			// return view sucess
 		}
