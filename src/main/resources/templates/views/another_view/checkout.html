@@ -147,7 +147,7 @@
     <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
-                <form th:action="@{/checkOrder}" method="POST">
+                <form th:action="@{/checkOrder}" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
