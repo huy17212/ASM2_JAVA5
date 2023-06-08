@@ -50,7 +50,7 @@ public class CheckoutController {
 		return "views/another_view/checkout";
 	}
 	
-	@GetMapping("checkOrder")
+	@PostMapping("checkOrder")
 	public ResponseEntity<?> checkOrder(@RequestBody String data) {
 		
 		CheckoutDto billWillBePay = new Gson().fromJson(data, CheckoutDto.class);
