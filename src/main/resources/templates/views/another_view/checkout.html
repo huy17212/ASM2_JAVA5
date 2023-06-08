@@ -229,13 +229,13 @@
                                 <ul class="checkout__total__products">
                                 	<th:block th:each="item,sub : ${mapProduct}">
                                 		<li> 
-                                			<span style="width: 245px;" th:text="${sub.index + '. ' + item.key.productName}"></span>
+                                			<span style="width: 245px;" th:text="${sub.index + '. ' + item.key.productName + 'x' + item.value}"></span>
                                 			<span th:text="${item.key.productPrice * item.value + '$'}"></span>
                                 		</li>
                                 	</th:block>
                                 </ul>
                                 <ul class="checkout__total__all">
-                                    <li>Subtotal: <span th:text ="${true_subTotal + '$'}"></span></li>
+                                    <li>Subtotal: <span th:text ="${true_subTotal - true_total + '$'}"></span></li>
                                     <li>Total: <span th:text ="${true_total +'$'}"></span></li>
                                 </ul>
                                 <div class="checkout__input__checkbox">
