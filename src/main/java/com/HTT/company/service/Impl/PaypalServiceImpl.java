@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.HTT.company.constant.PaypalTokenConstant;
+import com.HTT.company.dto.CheckoutDto;
 import com.HTT.company.service.PaypalService;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.APIContext;
@@ -42,7 +43,7 @@ public class PaypalServiceImpl implements PaypalService {
 	}
 
 	@Override
-	public Payment createPayment() {
+	public Payment createPayment(CheckoutDto data) {
 		// TODO Auto-generated method stub
 		return null;
 	}
