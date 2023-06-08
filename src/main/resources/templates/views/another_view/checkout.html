@@ -12,6 +12,10 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
     rel="stylesheet">
+    
+    <script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -172,7 +176,6 @@
                             <div class="checkout__input">
                                 <p>Address<span>*</span></p>
                                 <input type="text" placeholder="Street Address" class="checkout__input__add">
-                                <input type="text" placeholder="Apartment, suite, unite ect (optinal)">
                             </div>
                             <div class="checkout__input">
                                 <p>Town/City<span>*</span></p>
@@ -229,18 +232,19 @@
                                 <ul class="checkout__total__products">
                                 	<th:block th:each="item,sub : ${mapProduct}">
                                 		<li> 
-                                			<span style="width: 245px;" th:text="${sub.index + '. ' + item.key.productName + 'x' + item.value}"></span>
+                                			<span style="width: 245px;" th:text="${sub.index + '. ' + item.key.productName + ' x' + item.value}"></span>
                                 			<span th:text="${item.key.productPrice * item.value + '$'}"></span>
                                 		</li>
                                 	</th:block>
                                 </ul>
                                 <ul class="checkout__total__all">
+                                	<li>Coupon: <span th:text ="${true_subTotal - true_total + '$'}"></span></li>
                                     <li>Subtotal: <span th:text ="${true_subTotal - true_total + '$'}"></span></li>
                                     <li>Total: <span th:text ="${true_total +'$'}"></span></li>
                                 </ul>
                                 <div class="checkout__input__checkbox">
                                     <label for="acc-or">
-                                        Create an account?
+                                        Send mail to confirm?
                                         <input type="checkbox" id="acc-or">
                                         <span class="checkmark"></span>
                                     </label>
@@ -251,18 +255,18 @@
                                 <div class="checkout__input__checkbox">
                                     <label for="payment">
                                         Check Payment
-                                        <input type="checkbox" id="payment">
+                                        <input type="radio" id="payment" value="CheckPayment">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
                                 <div class="checkout__input__checkbox">
                                     <label for="paypal">
                                         Paypal
-                                        <input type="checkbox" id="paypal">
+                                        <input type="radio" id="payment" value="CheckPaypal">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                                <button onclick="checkout()" class="site-btn">PLACE ORDER</button>
                             </div>
                         </div>
                     </div>
@@ -361,6 +365,15 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    
+    <script type="text/javascript">
+    	
+    	function checkout(){
+    		alert("abc");
+    	}
+    
+    </script>
+    
 </body>
 
 </html>
