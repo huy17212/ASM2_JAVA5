@@ -235,17 +235,16 @@
 								To determine if a product sold by Amazon.com has a longer return timeline, locate the product type below. If the product type isn't listed or doesn't state another returns time frame, our standard 30-day return policy applies.
 								While most sellers offer a returns policy equivalent to Amazon's, some seller returns policies may vary. If the seller's listing is eligible for Amazon Prime, it will be subject to the same return policies as items fulfilled by Amazon.com that are outlined on this page.</p>
                                 <div class="checkout__input__checkbox">
+                                <input type="radio" name="payment" value="CheckPayment">
                                     <label for="payment">
                                         Check Payment
                                         <input type="radio" name="payment" value="CheckPayment">
-                                        <span class="checkmark"></span>
                                     </label>
                                 </div>
                                 <div class="checkout__input__checkbox">
                                     <label for="paypal">
                                         Paypal
                                         <input type="radio" name="payment" value="CheckPaypal">
-                                        <span class="checkmark"></span>
                                     </label>
                                 </div>
                                 <button onclick="checkout()" class="site-btn">PLACE ORDER</button>
@@ -350,35 +349,7 @@
     
     <script type="text/javascript">
     	
-    	function checkout(){
-    		
-    		
-    		
-    		$.ajax({
-    			url : "https://ustora.herokuapp.com/checkOrder",
-    			type : "POST",
-    			dataType : "text",
-    			contentType : "application/json",
-    			data : ,
-    			success : function(data, status) {
-    				alert(data);
-    			},error : function(status) {
-    				alert(status);
-    			}
-    		});
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
+    	function checkout(){    		
     		$.ajax({
     			url : url,
     			type : "POST",
