@@ -22,6 +22,8 @@ public class CheckoutDto {
 	private String postcodeZip;
 	private String phone;
 	private String email;
+	
+	
 	private String sendMail;		
 	private String payment;
 	private Map<Product, Integer> mapProduct;

@@ -174,11 +174,11 @@
                             </div>
                             <div class="checkout__input">
                                 <p>Country<span>*</span></p>
-                                <input id="country" name="country" type="text">
+                                <input id="country" name="<country></country>" type="text">
                             </div>
                             <div class="checkout__input">
                                 <p>Address<span>*</span></p>
-                                <input id="address" name="country" type="text" placeholder="Street Address" class="checkout__input__add">
+                                <input id="address" name="address" type="text" placeholder="Street Address" class="checkout__input__add">
                             </div>
                             <div class="checkout__input">
                                 <p>Town/City<span>*</span></p>
@@ -202,25 +202,27 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Email<span>*</span></p>
-                                        <input id="email" name="phone" type="text">
+                                        <input id="email" name="email" type="text">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" id="list_product" value="${mapProduct}">
+                        <input type="hidden" name="mapProduct" th:value="${mapProduct}">
+                        <input type="hidden" name="subTotal" th:value="${true_subTotal - true_total}">
+                        <input type="hidden" name="total" th:value="${true_total}">
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
                                 <h4 class="order__title">Your order</h4>
                                 <div class="checkout__order__products">Product <span>Total</span></div>
                                 <ul class="checkout__total__products">
-                                 	
+                              			
                                 	<th:block th:each="item,sub : ${mapProduct}">
                                 		<li> 
                                 			<span style="width: 245px;" th:text="${sub.index + '. ' + item.key.productName + ' x' + item.value}"></span>
                                 			<span th:text="${item.key.productPrice * item.value + '$'}"></span>
                                 		</li>
                                 	</th:block>
-                                </ul>
+                                </ul>	
                                 <ul class="checkout__total__all">
                                 	<li>Coupon: <span id="coupon" th:text ="${true_subTotal - true_total + '$'}"></span></li>
                                     <li>Subtotal: <span id="subTotal" th:text ="${true_subTotal - true_total + '$'}"></span></li>

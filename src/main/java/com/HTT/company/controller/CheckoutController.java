@@ -91,7 +91,7 @@ public class CheckoutController {
 			// return view sucess
 		}
 
-		return null;
+		return "redirect:/";
 	}
 
 }
