@@ -45,12 +45,14 @@ public class CheckoutDtoUtils {
 			String[] pairs = keyValue.split(" *= *", 2);
 			try {
 				map.put(Product.parse(pairs[0]), pairs.length == 1 ? 0 : Integer.parseInt(pairs[1]));
+				System.out.println("no sire " + pairs[1]);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		checkoutDto.setMapProduct(map);
-
+		
+		
 		System.out.println("king of kaka " + map);
 
 		return null;
