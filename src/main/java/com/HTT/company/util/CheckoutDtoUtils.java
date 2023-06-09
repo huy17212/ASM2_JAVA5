@@ -43,24 +43,14 @@ public class CheckoutDtoUtils {
 		Map<Product, Integer> map = new LinkedHashMap<Product, Integer>();
 		for (String keyValue : checkOutMap.get("mapProduct").split(" *}, *")) {
 			String[] pairs = keyValue.split(" *= *");
-			
-			System.out.println(checkOutMap.get("mapProduct"));
-			System.out.println("start " + keyValue.indexOf(")="));
-			System.out.println("end " +keyValue.length());
-			System.out.println("value " +keyValue.substring(keyValue.indexOf(")="), keyValue.length()));
-			
-			Integer number = Integer.parseInt(keyValue.substring(keyValue.indexOf(")="), keyValue.length()));
-			
+			Integer number = Integer.parseInt(keyValue.substring(keyValue.indexOf(")=") + 2, keyValue.length()));
 			try {
-				System.out.println("no sire " + pairs[5] + " adsc");
 				map.put(Product.parse(pairs[0]), pairs.length == 1 ? 0 : Integer.parseInt(pairs[5]));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		checkoutDto.setMapProduct(map);
-		
-		
 		System.out.println("king of kaka " + map);
 
 		return null;
