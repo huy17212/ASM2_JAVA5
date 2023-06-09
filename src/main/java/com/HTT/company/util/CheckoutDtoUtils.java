@@ -47,6 +47,8 @@ public class CheckoutDtoUtils {
 		   map.put(pairs[0], pairs.length == 1 ? "" : pairs[1]);
 		}
 		
+		System.out.println("king of kaka " +map);
+		
 		return null;
 	}
 
