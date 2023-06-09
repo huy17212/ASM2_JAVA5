@@ -21,7 +21,7 @@ public class AppBean {
 	
 	// get BcryptPasswordEncoder
 	@Bean
-	public BCryptPasswordEncoder getBcryptPasswoưrdEncoder() {
+	public BCryptPasswordEncoder getBcryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	

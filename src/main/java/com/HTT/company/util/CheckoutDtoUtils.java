@@ -40,6 +40,7 @@ public class CheckoutDtoUtils {
 		checkoutDto.setPayment(checkOutMap.get("payment"));
 		checkoutDto.setPostcodeZip(checkOutMap.get("postZip"));
 		
+		
 		return null;
 	}
 
