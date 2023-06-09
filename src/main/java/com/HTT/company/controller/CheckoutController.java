@@ -18,6 +18,7 @@ import com.HTT.company.dto.CheckoutDto;
 import com.HTT.company.entity.Product;
 import com.HTT.company.service.PaypalService;
 import com.HTT.company.service.ProductService;
+import com.HTT.company.util.CheckoutDtoUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
@@ -64,7 +65,9 @@ public class CheckoutController {
 		System.out.print("Kaka is goat " + data.toString());
 //		CheckoutDto billWillBePay = new Gson().fromJson(data, CheckoutDto.class);
 //		
-		System.out.print("Kaka Huy Tri " + data.toString());
+		CheckoutDtoUtils.MapStringStringparseToCheckoutDto(data);
+		
+		
 
 		// store in DB
 

@@ -1,9 +1,11 @@
 package com.HTT.company.util;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.HTT.company.constant.ApplicationConstant;
 import com.HTT.company.dto.CheckoutDto;
+
 
 public class CheckoutDtoUtils {
 
@@ -26,7 +28,7 @@ public class CheckoutDtoUtils {
 //		private Double total;
 		
 		
-		checkOutMap.get(checkOutMap);
+	
 		CheckoutDto checkoutDto = (CheckoutDto) ApplicationConstant.APPLICATION_CONTEXT.getBean("getCheckoutDto");
 		checkoutDto.setFirstName(checkOutMap.get("firstName"));
 		checkoutDto.setLastName(checkOutMap.get("lastName"));
@@ -38,8 +40,15 @@ public class CheckoutDtoUtils {
 		checkoutDto.setEmail(checkOutMap.get("email"));
 		checkoutDto.setSendMail(checkOutMap.get("sendMail"));
 		checkoutDto.setPayment(checkOutMap.get("payment"));
-		checkoutDto.setPostcodeZip(checkOutMap.get("postZip"));
+		checkoutDto.setPostcodeZip(checkOutMap.get("postcodeZip"));
 		
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+		for(String keyValue : checkOutMap.get("mapProduct").split(" *, *")) {
+		   String[] pairs = keyValue.split(" *= *", 2);
+		   map.put(pairs[0], pairs.length == 1 ? 0 : Integer.parseInt(pairs[1]));
+		}
+		
+		System.out.println("best of Kaka " +map);
 		
 		return null;
 	}
