@@ -48,7 +48,8 @@ public class CheckoutDtoUtils {
 			System.out.println("start " + keyValue.indexOf(")="));
 			System.out.println("end " +keyValue.length());
 			
-			Integer number = Integer.parseInt(keyValue.substring(keyValue.indexOf("}="), keyValue.length()));
+			Integer number = Integer.parseInt(keyValue.substring(keyValue.indexOf(")="), keyValue.length()));
+			System.out.println("value " +number);
 			try {
 				System.out.println("no sire " + pairs[5] + " adsc");
 				map.put(Product.parse(pairs[0]), pairs.length == 1 ? 0 : Integer.parseInt(pairs[5]));
