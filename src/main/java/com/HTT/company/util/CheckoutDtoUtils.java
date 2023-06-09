@@ -44,8 +44,8 @@ public class CheckoutDtoUtils {
 		for (String keyValue : checkOutMap.get("mapProduct").split(" *}, *")) {
 			String[] pairs = keyValue.split(" *= *", 2);
 			try {
-				map.put(Product.parse(pairs[0]), pairs.length == 1 ? 0 : Integer.parseInt(pairs[1]));
 				System.out.println("no sire " + pairs[1]);
+				map.put(Product.parse(pairs[0]), pairs.length == 1 ? 0 : Integer.parseInt(pairs[1]));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
