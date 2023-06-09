@@ -42,10 +42,10 @@ public class CheckoutDtoUtils {
 
 		Map<Product, Integer> map = new LinkedHashMap<Product, Integer>();
 		for (String keyValue : checkOutMap.get("mapProduct").split(" *}, *")) {
-			String[] pairs = keyValue.split(" *= *", 1000);
+			String[] pairs = keyValue.split(" *= *");
 			try {
-				System.out.println("no sire " + pairs[1] + " adsc");
-				map.put(Product.parse(pairs[0]), pairs.length == 1 ? 0 : Integer.parseInt(pairs[5]));
+				System.out.println("no sire " + pairs[5] + " adsc");
+//				map.put(Product.parse(pairs[0]), pairs.length == 1 ? 0 : Integer.parseInt(pairs[5]));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
