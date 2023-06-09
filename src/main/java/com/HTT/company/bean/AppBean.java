@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import com.HTT.company.dto.CheckoutDto;
 import com.HTT.company.entity.Users;
 
 @Configuration
@@ -20,7 +21,7 @@ public class AppBean {
 	
 	// get BcryptPasswordEncoder
 	@Bean
-	public BCryptPasswordEncoder getBcryptPasswordEncoder() {
+	public BCryptPasswordEncoder getBcryptPasswoưrdEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
@@ -28,6 +29,11 @@ public class AppBean {
 	@Bean
 	public Users getUsers() {
 		return new Users();
+	}
+	
+	@Bean
+	public CheckoutDto getCheckoutDto() {
+		return new CheckoutDto();
 	}
 
 }

@@ -1,7 +1,5 @@
 package com.HTT.company.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.restfb.types.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

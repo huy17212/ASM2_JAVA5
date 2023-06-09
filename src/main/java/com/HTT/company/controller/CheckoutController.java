@@ -58,8 +58,8 @@ public class CheckoutController {
 	@PostMapping("checkOrder")
 	public String checkOrder(@RequestParam Map<String, String> data) {
 		
-		ObjectMapper mapper = new ObjectMapper();
-		CheckoutDto checkoutDTO = mapper.convertValue(data, CheckoutDto.class);
+//		ObjectMapper mapper = new ObjectMapper();
+//		CheckoutDto checkoutDTO = mapper.convertValue(data, CheckoutDto.class);
 		
 		System.out.print("Kaka is goat " + checkoutDTO);
 //		CheckoutDto billWillBePay = new Gson().fromJson(data, CheckoutDto.class);
