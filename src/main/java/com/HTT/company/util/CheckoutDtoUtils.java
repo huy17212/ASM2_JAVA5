@@ -40,15 +40,16 @@ public class CheckoutDtoUtils {
 		checkoutDto.setPayment(checkOutMap.get("payment"));
 		checkoutDto.setPostcodeZip(checkOutMap.get("postcodeZip"));
 
-		Map<Product, String> map = new LinkedHashMap<Product, String>();
+		Map<Product, Integer> map = new LinkedHashMap<Product, Integer>();
 		for (String keyValue : checkOutMap.get("mapProduct").split(" *}, *")) {
 			String[] pairs = keyValue.split(" *= *", 2);
 			try {
-				map.put(Product.parse(pairs[0]), pairs.length == 1 ? "" : pairs[1]);
+				map.put(Product.parse(pairs[0]), pairs.length == 1 ? 0 : Integer.parseInt(pairs[1]));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		checkoutDto.setMapProduct(map);
 
 		System.out.println("king of kaka " + map);
 
