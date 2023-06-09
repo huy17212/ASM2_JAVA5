@@ -44,6 +44,7 @@ public class CheckoutDtoUtils {
 		for (String keyValue : checkOutMap.get("mapProduct").split(" *}, *")) {
 			String[] pairs = keyValue.split(" *= *");
 			
+			System.out.println(checkOutMap.get("mapProduct"));
 			System.out.println("start " + keyValue.indexOf("}="));
 			System.out.println("end " +keyValue.length());
 			
