@@ -42,10 +42,10 @@ public class CheckoutDtoUtils {
 		checkoutDto.setPayment(checkOutMap.get("payment"));
 		checkoutDto.setPostcodeZip(checkOutMap.get("postcodeZip"));
 		
-		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+		Map<String, String> map = new LinkedHashMap<String, String>();
 		for(String keyValue : checkOutMap.get("mapProduct").split(" *, *")) {
 		   String[] pairs = keyValue.split(" *= *", 2);
-		   map.put(pairs[0], pairs.length == 1 ? 0 : Integer.parseInt(pairs[1]));
+		   map.put(pairs[0], pairs.length == 1 ? "0" : pairs[1]);
 		}
 		
 		System.out.println("best of Kaka " +map);
