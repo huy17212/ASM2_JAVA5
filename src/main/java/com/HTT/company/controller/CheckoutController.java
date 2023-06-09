@@ -18,9 +18,9 @@ import com.HTT.company.dto.CheckoutDto;
 import com.HTT.company.entity.Product;
 import com.HTT.company.service.PaypalService;
 import com.HTT.company.service.ProductService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
-import com.paypal.base.rest.PayPalRESTException;
 
 @Controller
 public class CheckoutController {
@@ -57,7 +57,11 @@ public class CheckoutController {
 
 	@PostMapping("checkOrder")
 	public String checkOrder(@RequestParam Map<String, String> data) {
-//		
+		
+		ObjectMapper mapper = new ObjectMapper();
+		CheckoutDto checkoutDTO = mapper.convertValue(data, CheckoutDto.class);
+		
+		System.out.print("Kaka is goat " + checkoutDTO);
 //		CheckoutDto billWillBePay = new Gson().fromJson(data, CheckoutDto.class);
 //		
 		System.out.print("Kaka Huy Tri " + data.toString());
@@ -86,7 +90,6 @@ public class CheckoutController {
 						return "redirect:"+link.getHref();
 					}
 				}
-
 			return "redirect:/";
 			// return view sucess
 		}
