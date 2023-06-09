@@ -11,6 +11,8 @@ public class CheckoutDtoUtils {
 
 	public static CheckoutDto MapStringStringparseToCheckoutDto(Map<String, String> checkOutMap) {
 
+		System.out.println("goat kaka " + checkOutMap);
+		
 		CheckoutDto checkoutDto = (CheckoutDto) ApplicationConstant.APPLICATION_CONTEXT.getBean("getCheckoutDto");
 		checkoutDto.setFirstName(checkOutMap.get("firstName"));
 		checkoutDto.setLastName(checkOutMap.get("lastName"));
@@ -24,7 +26,7 @@ public class CheckoutDtoUtils {
 		checkoutDto.setPayment(checkOutMap.get("payment"));
 		checkoutDto.setPostcodeZip(checkOutMap.get("postcodeZip"));
 
-		System.out.println("goat kaka " + checkOutMap);
+		
 		
 		Map<Product, Integer> map = new LinkedHashMap<Product, Integer>();
 		for (String keyValue : checkOutMap.get("mapProduct").split(" *}, *")) {
