@@ -5,11 +5,12 @@ import java.util.Map;
 
 import com.HTT.company.constant.ApplicationConstant;
 import com.HTT.company.dto.CheckoutDto;
+import com.HTT.company.entity.Product;
 
 public class CheckoutDtoUtils {
 
 	public static CheckoutDto MapStringStringparseToCheckoutDto(Map<String, String> checkOutMap) {
-		
+
 //		private String firstName;		
 //		private String lastName;
 //		private String country;
@@ -25,9 +26,7 @@ public class CheckoutDtoUtils {
 //		private String coupon;
 //		private Double subTotal;
 //		private Double total;
-		
-		
-	
+
 		CheckoutDto checkoutDto = (CheckoutDto) ApplicationConstant.APPLICATION_CONTEXT.getBean("getCheckoutDto");
 		checkoutDto.setFirstName(checkOutMap.get("firstName"));
 		checkoutDto.setLastName(checkOutMap.get("lastName"));
@@ -40,15 +39,19 @@ public class CheckoutDtoUtils {
 		checkoutDto.setSendMail(checkOutMap.get("sendMail"));
 		checkoutDto.setPayment(checkOutMap.get("payment"));
 		checkoutDto.setPostcodeZip(checkOutMap.get("postcodeZip"));
-		
-		Map<String, String> map = new LinkedHashMap<String, String>();
-		for(String keyValue : checkOutMap.get("mapProduct").split(" *}, *")) {
-		   String[] pairs = keyValue.split(" *= *", 2);
-		   map.put(pairs[0], pairs.length == 1 ? "" : pairs[1]);
+
+		Map<Product, String> map = new LinkedHashMap<Product, String>();
+		for (String keyValue : checkOutMap.get("mapProduct").split(" *}, *")) {
+			String[] pairs = keyValue.split(" *= *", 2);
+			try {
+				map.put(Product.parse(pairs[0]), pairs.length == 1 ? "" : pairs[1]);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		
-		System.out.println("king of kaka " +map);
-		
+
+		System.out.println("king of kaka " + map);
+
 		return null;
 	}
 

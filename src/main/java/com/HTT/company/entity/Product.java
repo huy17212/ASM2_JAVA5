@@ -1,9 +1,12 @@
 package com.HTT.company.entity;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -260,4 +263,18 @@ public class Product implements Serializable {
 	public void setProductCategory(String productCategory) {
 		this.productCategory = productCategory;
 	}
+	
+	public static Product parse(String input) throws Exception {
+        Pattern pattern = Pattern.compile("(\\w+)=(\\w+)");
+        Matcher matcher = pattern.matcher(input);
+        Product product = new Product();
+        while (matcher.find()) {
+            String key = matcher.group(1);
+            String value = matcher.group(2);
+            Field field = Product.class.getDeclaredField(key);
+            field.setAccessible(true);
+            field.set(product, value);
+        }
+        return product;
+    }
 }
