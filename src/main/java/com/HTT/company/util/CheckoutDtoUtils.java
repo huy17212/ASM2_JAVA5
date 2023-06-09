@@ -43,7 +43,7 @@ public class CheckoutDtoUtils {
 		Map<Product, Integer> map = new LinkedHashMap<Product, Integer>();
 		for (String keyValue : checkOutMap.get("mapProduct").split(" *}, *")) {
 			String[] pairs = keyValue.split(" *= *");
-			Integer number = Integer.parseInt(keyValue.substring(keyValue.indexOf(")=") + 2, keyValue.length()-2));
+			Integer number = Integer.parseInt(keyValue.substring(keyValue.indexOf(")=") + 2, keyValue.indexOf(")=") + 3));
 			try {
 				map.put(Product.parse(pairs[0]), pairs.length == 1 ? 0 : number);
 			} catch (Exception e) {
