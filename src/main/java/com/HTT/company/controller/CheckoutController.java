@@ -61,7 +61,7 @@ public class CheckoutController {
 //		ObjectMapper mapper = new ObjectMapper();
 //		CheckoutDto checkoutDTO = mapper.convertValue(data, CheckoutDto.class);
 		
-		System.out.print("Kaka is goat " + checkoutDTO);
+		System.out.print("Kaka is goat " + data.toString());
 //		CheckoutDto billWillBePay = new Gson().fromJson(data, CheckoutDto.class);
 //		
 		System.out.print("Kaka Huy Tri " + data.toString());
